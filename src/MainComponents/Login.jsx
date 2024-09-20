@@ -6,6 +6,7 @@ import LoginButton from "./Reusables/LoginButton";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "./Store/Apis/Login";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,13 +21,19 @@ const Login = () => {
 
   useEffect(() => {
     setLog(false);
-    
   }, []);
 
   const Authentication = () => {
     const { username, password } = user;
-    dispatch(LoginUser({ username, password }));
-    setLog(true);
+    if (
+      (username !== "" || username !== undefined) &&
+      (password !== "" || password !== undefined)
+    ) {
+      dispatch(LoginUser({ username, password }));
+      setLog(true);
+    } else {
+      toast.error("Either Email or Password is empty");
+    }
   };
 
   const Change = (e) => {
@@ -37,7 +44,9 @@ const Login = () => {
     });
   };
 
-  if (loginuser?.status && !authenticating && log) {
+  if (loginuser?.status !== "False" && log) {
+    console.log(loginuser?.status);
+    console.log(!authenticating);
     window.location.pathname = "/dashboard";
   }
 

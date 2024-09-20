@@ -24,7 +24,9 @@ import { ReactComponent as Cable } from "./../../assets/Cable.svg";
 import { ReactComponent as CableColor } from "./../../assets/CableColor.svg";
 import { ReactComponent as Electricity } from "./../../assets/Electricity.svg";
 import { ReactComponent as ElectricityColor } from "./../../assets/ElectricityColor.svg";
+import { ReactComponent as Logout } from "./../../assets/logout.svg";
 import { Link, useLocation } from "react-router-dom";
+import { LogOutAuthentication } from "./LogOutAuthentication";
 
 const Sidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -40,6 +42,7 @@ const Sidebar = () => {
   const [isHovered10, setIsHovered10] = useState(false);
   const [isHovered11, setIsHovered11] = useState(false);
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const router = useLocation();
   return (
     <div className="bg-white flex flex-col border-r border pt-3 h-[100vh]">
@@ -100,12 +103,16 @@ const Sidebar = () => {
           onMouseEnter={() => setIsHovered1(true)}
           onMouseLeave={() => setIsHovered1(false)}
         >
-          {router.pathname === "/customers" || isHovered1 || router.pathname === "/customers/:id"   ? (
+          {router.pathname === "/customers" ||
+          isHovered1 ||
+          router.pathname === "/customers/:id" ? (
             <div className={`w-[3px] ${"bg-route-color rounded-t-l"}`}></div>
           ) : (
             <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
           )}
-          {router.pathname === "/customers" || isHovered1 || router.pathname === "/customers/:id" ? (
+          {router.pathname === "/customers" ||
+          isHovered1 ||
+          router.pathname === "/customers/:id" ? (
             <CustomersColor
               className={`${
                 router.pathname === "/customers"
@@ -116,7 +123,8 @@ const Sidebar = () => {
           ) : (
             <Customers
               className={`${
-                router.pathname === "/customers" || router.pathname === "/customers/:id"
+                router.pathname === "/customers" ||
+                router.pathname === "/customers/:id"
                   ? "fill-current text-route-color my-[9px]"
                   : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
               }`}
@@ -125,7 +133,8 @@ const Sidebar = () => {
 
           <p
             className={`${
-              router.pathname === "/customers" || router.pathname === "/customers/:id"
+              router.pathname === "/customers" ||
+              router.pathname === "/customers/:id"
                 ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
                 : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
             }`}
@@ -143,7 +152,7 @@ const Sidebar = () => {
           onMouseEnter={() => setIsHovered7(true)}
           onMouseLeave={() => setIsHovered7(false)}
         >
-          {router.pathname === "/account" || isHovered7    ? (
+          {router.pathname === "/account" || isHovered7 ? (
             <div className={`w-[3px] ${"bg-route-color rounded-t-l"}`}></div>
           ) : (
             <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
@@ -220,22 +229,20 @@ const Sidebar = () => {
           </p>
         </Link>
         <Link
-          to="/investments"
+          onClick={() => setShow2(!show2)}
           className={`flex flex-row h-[33px] ${
             router.pathname === "/investments"
               ? "bg-route-bg gap-2 rounded-custom-router"
               : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
           }`}
-          onMouseEnter={() => setIsHovered3(true)}
-          onMouseLeave={() => setIsHovered3(false)}
         >
           {router.pathname === "/investments" || isHovered3 ? (
-            <div className={`w-[3px] ${"bg-route-color rounded-t-l"}`}></div>
+            <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
           ) : (
             <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
           )}
           {router.pathname === "/investments" || isHovered3 ? (
-            <InvestmentsColor
+            <Investments
               className={`${
                 router.pathname === "/investments"
                   ? "fill-current text-route-color my-[9px]"
@@ -254,14 +261,156 @@ const Sidebar = () => {
 
           <p
             className={`${
-              router.pathname === "/investments"
-                ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
-                : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+              // router.pathname === "/investments"
+              //   ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block" :
+              "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
             }`}
           >
             Investments
           </p>
+          <div className="items-center my-[15px] ml-[10px] hidden sm:block md:block">
+            <Under />
+          </div>
         </Link>
+        {show2 && (
+          <div className="flex flex-col pl-[10px] gap-2">
+            <Link
+              to="/investments"
+              className={`flex flex-row h-[33px] ${
+                router.pathname === "/investments"
+                  ? "bg-route-bg gap-2 rounded-custom-router"
+                  : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
+              }`}
+              onMouseEnter={() => setIsHovered3(true)}
+              onMouseLeave={() => setIsHovered3(false)}
+            >
+              {router.pathname === "/investments" || isHovered3 ? (
+                <div
+                  className={`w-[3px] ${"bg-route-color rounded-t-l"}`}
+                ></div>
+              ) : (
+                <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
+              )}
+              {router.pathname === "/investments" || isHovered3 ? (
+                <InvestmentsColor
+                  className={`${
+                    router.pathname === "/investments"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              ) : (
+                <Investments
+                  className={`${
+                    router.pathname === "/investments"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              )}
+
+              <p
+                className={`${
+                  router.pathname === "/investments"
+                    ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                    : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                }`}
+              >
+                Transactions
+              </p>
+            </Link>
+            {/* <Link
+              to="/data"
+              className={`flex flex-row h-[33px] ${
+                router.pathname === "/data"
+                  ? "bg-route-bg gap-2 rounded-custom-router"
+                  : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
+              }`}
+              onMouseEnter={() => setIsHovered9(true)}
+              onMouseLeave={() => setIsHovered9(false)}
+            >
+              {router.pathname === "/data" || isHovered9 ? (
+                <div
+                  className={`w-[3px] ${"bg-route-color rounded-t-l"}`}
+                ></div>
+              ) : (
+                <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
+              )}
+              {router.pathname === "/data" || isHovered9 ? (
+                <DataColor
+                  className={`${
+                    router.pathname === "/data"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              ) : (
+                <Data
+                  className={`${
+                    router.pathname === "/data"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              )}
+
+              <p
+                className={`${
+                  router.pathname === "/data"
+                    ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                    : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                }`}
+              >
+                Data
+              </p>
+            </Link>
+            <Link
+              to="/cable"
+              className={`flex flex-row h-[33px] ${
+                router.pathname === "/cable"
+                  ? "bg-route-bg gap-2 rounded-custom-router"
+                  : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
+              }`}
+              onMouseEnter={() => setIsHovered10(true)}
+              onMouseLeave={() => setIsHovered10(false)}
+            >
+              {router.pathname === "/cable" || isHovered10 ? (
+                <div
+                  className={`w-[3px] ${"bg-route-color rounded-t-l"}`}
+                ></div>
+              ) : (
+                <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
+              )}
+              {router.pathname === "/cable" || isHovered10 ? (
+                <CableColor
+                  className={`${
+                    router.pathname === "/cable"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              ) : (
+                <Cable
+                  className={`${
+                    router.pathname === "/cable"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              )}
+
+              <p
+                className={`${
+                  router.pathname === "/cable"
+                    ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                    : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                }`}
+              >
+                Cable
+              </p>
+            </Link> */}
+          </div>
+        )}
         <Link
           to="/loans"
           className={`flex flex-row h-[33px] ${
@@ -308,15 +457,24 @@ const Sidebar = () => {
         <Link
           onClick={() => setShow(!show)}
           className={`flex flex-row h-[35px] ${
-            router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity"
+            router.pathname === "/airtime" ||
+            router.pathname === "/data" ||
+            router.pathname === "/cable" ||
+            router.pathname === "/electricity"
               ? "bg-route-bg gap-4 rounded-custom-router"
               : "bg-white hover:bg-route-bg gap-3 rounded-custom-router"
           }`}
         >
-          {router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity" ? (
+          {router.pathname === "/airtime" ||
+          router.pathname === "/data" ||
+          router.pathname === "/cable" ||
+          router.pathname === "/electricity" ? (
             <Bill
               className={`${
-                router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity"
+                router.pathname === "/airtime" ||
+                router.pathname === "/data" ||
+                router.pathname === "/cable" ||
+                router.pathname === "/electricity"
                   ? "fill-current text-route-color my-[9px]"
                   : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
               }`}
@@ -324,7 +482,10 @@ const Sidebar = () => {
           ) : (
             <Bill
               className={`${
-                router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity"
+                router.pathname === "/airtime" ||
+                router.pathname === "/data" ||
+                router.pathname === "/cable" ||
+                router.pathname === "/electricity"
                   ? "fill-current text-route-color my-[9px]"
                   : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
               }`}
@@ -333,9 +494,9 @@ const Sidebar = () => {
 
           <p
             className={`${
-            //   router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity"
-            //     ? "text-route-color my-[9px] text-[12px] font-medium" :
-                 " text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+              //   router.pathname === "/airtime" || router.pathname === "/data" || router.pathname === "/cable" || router.pathname === "/electricity"
+              //     ? "text-route-color my-[9px] text-[12px] font-medium" :
+              " text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
             }`}
           >
             Bill Payments
@@ -523,7 +684,7 @@ const Sidebar = () => {
                     : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
                 }`}
               >
-               Electricity
+                Electricity
               </p>
             </Link>
           </div>
@@ -616,6 +777,17 @@ const Sidebar = () => {
         </Link>
       </div>
       <hr className="" />
+      <div
+        onClick={() => LogOutAuthentication()}
+        className="px-[20px] flex flex-row justify-between text-[14px] border-t-2 py-[15px] cursor-pointer"
+      >
+        <div className="real">
+          <span className="logbut">Log Out</span>
+        </div>
+        <div className="buttonlogout">
+          <Logout />
+        </div>
+      </div>
     </div>
   );
 };

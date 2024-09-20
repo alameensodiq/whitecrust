@@ -31,7 +31,7 @@ const Tables = ({
     [`&.${tableCellClasses.head}`]: {
       // fontFamily: `Inter sans-serif`,
       fontWeight: 600,
-      fontSize: "10px",
+      fontSize: "8px",
       lineHeight: "13px",
       // fontFamily: "Exo 2, !important",
       /* identical to box height, or 150% */
@@ -229,13 +229,9 @@ const Tables = ({
               {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "10%" }}>
-                    <Moment format="DD-MM-YYYY">
-                      {item?.dateCreated}
-                    </Moment>
+                    <Moment format="DD-MM-YYYY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>
-                    
-                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.sentFrom}
                   </StyledTableCell>
@@ -362,17 +358,15 @@ const Tables = ({
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.profile?.otherName}
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>
-                   
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>
-               
-                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.profile?.phoneNumber}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.profile?.dateCreated}
+                    <Moment format="DD/MM/YY">
+                      {item?.profile?.dateCreated}
+                    </Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     <span className="text-[12px] font-semibold text-button-bg">
@@ -454,75 +448,127 @@ const Tables = ({
           >
             <TableHead>
               <TableRow style={{ paddingRight: "0px" }}>
-                <StyledTableCell style={{ width: "20%" }}>
+                <StyledTableCell style={{ width: "10%" }}>
                   INVESTMENT DATE
                 </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
+                <StyledTableCell style={{ width: "10%" }}>
                   INVESTOR'S NAME
                 </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
+                <StyledTableCell style={{ width: "10%" }}>
                   INVESTMENT TYPE
                 </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
+                <StyledTableCell style={{ width: "10%" }}>
+                  DURATION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
                   MATURITY DATE
                 </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  AMOUNT
+                <StyledTableCell style={{ width: "10%" }}>
+                  AMOUNT(N)
                 </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  INTEREST(N)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  RO(N)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  STATUS
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <StyledTableRow>
-                <StyledTableCell className="text-dob" style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Basic
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  200,000
-                </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
-                <StyledTableCell className="text-dob" style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Basic
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  200,000
-                </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
-                <StyledTableCell className="text-dob" style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Basic
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  200,000
-                </StyledTableCell>
-              </StyledTableRow>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell
+                    className="text-dob"
+                    style={{ width: "10%" }}
+                  >
+                    <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.investorName}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.investmentInfo[0]?.name}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.duration} days
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {/* <Moment format="DD/MM/YYY">
+                      {item?.investmentInfo?.dateCreated}
+                    </Moment> */}
+                    ----
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.amount}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.interestAmount}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.currentInterestYeild}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.status === "running" ? (
+                      <button
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "100%",
+                          height: "100%",
+                          background: "#8a8a7d",
+                          color: "#e6df19",
+                          gap: "6px",
+                          borderRadius: "6px"
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#e5e999",
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%"
+                          }}
+                        ></span>{" "}
+                        Pending
+                      </button>
+                    ) : (
+                      <button
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "100%",
+                          height: "100%",
+                          background: "#ECFDF3",
+                          color: "#027A48",
+                          gap: "6px",
+                          borderRadius: "6px"
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#027A48",
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%"
+                          }}
+                        ></span>{" "}
+                        Active
+                      </button>
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <span style={{ color: "#263BD4" }}>View</span>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
