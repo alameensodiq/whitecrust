@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { userData } from "../../../userData";
 
-export const InvestmentHistory = createAsyncThunk(
-  "history",
+export const Loan = createAsyncThunk(
+  "loan",
   async ({ startDate, endDate, currentPage, search }, thunkAPI) => {
     console.log(process.env.REACT_APP_BASE_URL);
     const dateObj = new Date(startDate);
@@ -18,7 +18,7 @@ export const InvestmentHistory = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}superadmin/investmenthistory?start_date=${formattedDate}&end_date=${formattedDated}&page=${currentPage}&search=${search}`,
+        `${process.env.REACT_APP_BASE_URL}superadmin/loan?start_date=${formattedDate}&end_date=${formattedDated}&page=${currentPage}&search=${search}`,
         {
           method: "GET",
           headers: {

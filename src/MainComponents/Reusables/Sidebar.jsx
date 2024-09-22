@@ -41,6 +41,8 @@ const Sidebar = () => {
   const [isHovered9, setIsHovered9] = useState(false);
   const [isHovered10, setIsHovered10] = useState(false);
   const [isHovered11, setIsHovered11] = useState(false);
+  const [isHovered13, setIsHovered13] = useState(false);
+  const [isHovered15, setIsHovered15] = useState(false);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const router = useLocation();
@@ -231,17 +233,23 @@ const Sidebar = () => {
         <Link
           onClick={() => setShow2(!show2)}
           className={`flex flex-row h-[33px] ${
-            router.pathname === "/investments"
+            router.pathname === "/investments" ||
+            router.pathname === "/investmentstypes" ||
+            router.pathname === "/investmentspackages"
               ? "bg-route-bg gap-2 rounded-custom-router"
               : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
           }`}
         >
-          {router.pathname === "/investments" || isHovered3 ? (
+          {router.pathname === "/investments" ||
+          router.pathname === "/investmentstypes" ||
+          router.pathname === "/investmentspackages" ? (
             <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
           ) : (
             <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
           )}
-          {router.pathname === "/investments" || isHovered3 ? (
+          {router.pathname === "/investments" ||
+          router.pathname === "/investmentstypes" ||
+          router.pathname === "/investmentspackages" ? (
             <Investments
               className={`${
                 router.pathname === "/investments"
@@ -252,7 +260,9 @@ const Sidebar = () => {
           ) : (
             <Investments
               className={`${
-                router.pathname === "/investments"
+                router.pathname === "/investments" ||
+                router.pathname === "/investmentstypes" ||
+                router.pathname === "/investmentspackages"
                   ? "fill-current text-route-color my-[9px]"
                   : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
               }`}
@@ -317,6 +327,96 @@ const Sidebar = () => {
                 }`}
               >
                 Transactions
+              </p>
+            </Link>
+            <Link
+              to="/investmentstypes"
+              className={`flex flex-row h-[33px] ${
+                router.pathname === "/investmentstypes"
+                  ? "bg-route-bg gap-2 rounded-custom-router"
+                  : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
+              }`}
+              onMouseEnter={() => setIsHovered13(true)}
+              onMouseLeave={() => setIsHovered13(false)}
+            >
+              {router.pathname === "/investmentstypes" || isHovered13 ? (
+                <div
+                  className={`w-[3px] ${"bg-route-color rounded-t-l"}`}
+                ></div>
+              ) : (
+                <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
+              )}
+              {router.pathname === "/investmentstypes" || isHovered13 ? (
+                <InvestmentsColor
+                  className={`${
+                    router.pathname === "/investmentstypes"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              ) : (
+                <Investments
+                  className={`${
+                    router.pathname === "/investmentstypes"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              )}
+
+              <p
+                className={`${
+                  router.pathname === "/investmentstypes"
+                    ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                    : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                }`}
+              >
+                Investment types
+              </p>
+            </Link>
+            <Link
+              to="/investmentspackages"
+              className={`flex flex-row h-[33px] ${
+                router.pathname === "/investmentspackages"
+                  ? "bg-route-bg gap-2 rounded-custom-router"
+                  : "bg-white hover:bg-route-bg gap-2 rounded-custom-router"
+              }`}
+              onMouseEnter={() => setIsHovered15(true)}
+              onMouseLeave={() => setIsHovered15(false)}
+            >
+              {router.pathname === "/investmentspackages" || isHovered15 ? (
+                <div
+                  className={`w-[3px] ${"bg-route-color rounded-t-l"}`}
+                ></div>
+              ) : (
+                <div className={`w-[3px] ${" bg-white rounded-t-l"}`}></div>
+              )}
+              {router.pathname === "/investmentspackages" || isHovered15 ? (
+                <InvestmentsColor
+                  className={`${
+                    router.pathname === "/investmentstypes"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              ) : (
+                <Investments
+                  className={`${
+                    router.pathname === "/investmentspackages"
+                      ? "fill-current text-route-color my-[9px]"
+                      : "hover:fill-current hover:text-route-color fill-current text-white my-[9px]"
+                  }`}
+                />
+              )}
+
+              <p
+                className={`${
+                  router.pathname === "/investmentspackages"
+                    ? "text-route-color my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                    : "hover:text-route-color text-route-noncolor my-[9px] text-[12px] font-medium hidden sm:block md:block"
+                }`}
+              >
+                Packages
               </p>
             </Link>
             {/* <Link
@@ -779,7 +879,7 @@ const Sidebar = () => {
       <hr className="" />
       <div
         onClick={() => LogOutAuthentication()}
-        className="px-[20px] flex flex-row justify-between text-[14px] border-t-2 py-[15px] cursor-pointer"
+        className="px-[20px] flex flex-row justify-between text-[14px]  py-[15px] cursor-pointer"
       >
         <div className="real">
           <span className="logbut">Log Out</span>
