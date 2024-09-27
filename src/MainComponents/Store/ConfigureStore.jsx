@@ -7,6 +7,10 @@ import { AccountsSlice } from "./Reducers/Accounts";
 import { InvestmentHistorySlice } from "./Reducers/InvestmentHistory";
 import { InvestmentSlice } from "./Reducers/Investment";
 import { LoanSlice } from "./Reducers/Loan";
+import { ElectricitiesSlice } from "./Reducers/Electricities";
+import { DatasSlice } from "./Reducers/Datas";
+import { CablesSlice } from "./Reducers/Cables";
+import { AirtimesSlice } from "./Reducers/Airtime";
 
 export default configureStore({
   reducer: {
@@ -17,6 +21,10 @@ export default configureStore({
     accounts: AccountsSlice?.reducer,
     history: InvestmentHistorySlice?.reducer,
     investment: InvestmentSlice?.reducer,
-    loan: LoanSlice?.reducer
+    loan: LoanSlice?.reducer,
+    electricities: ElectricitiesSlice?.reducer,
+    datas: DatasSlice?.reducer,
+    cables: CablesSlice?.reducer,
+    airtime: AirtimesSlice?.reducer
   }
 });

@@ -27,7 +27,12 @@ export const LoginUser = createAsyncThunk(
         }
       );
       let data = await response.json();
-      toast.success(data.message);
+      if (data?.status === "True") {
+        toast.success(data.message);
+      }
+      if (data?.status === "False") {
+        toast.error(data.message);
+      }
       console.log(data);
       sessionStorage.setItem("token", data?.data?.accessToken);
 

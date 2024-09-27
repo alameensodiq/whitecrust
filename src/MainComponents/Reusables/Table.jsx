@@ -20,7 +20,8 @@ const Tables = ({
   data,
   account,
   investmentstypes,
-  investmentspackages
+  investmentspackages,
+  cables
 }) => {
   const navigate = useNavigate();
   const theme = createTheme({
@@ -129,7 +130,9 @@ const Tables = ({
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.phoneNumber}
+                  </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.gender}
                   </StyledTableCell>
@@ -815,33 +818,43 @@ const Tables = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              <StyledTableRow>
-                <StyledTableCell style={{ width: "10%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>
-                  07057007046
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  0040759354
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>GLO</StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  WOFUFHKKDDL099
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>
-                  <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
-                    Successful
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <Moment format="YYYY-MM-DD">{item?.dateCreated}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {`${item?.user?.firstName} ${item?.user?.lastName}`}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.phoneNumber}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    ----------
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.network}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.amount}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.reference}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.status !== "failed" ? (
+                      <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
+                        Successful
+                      </button>
+                    ) : (
+                      <button className="bg-red-500 h-[30px] w-[100%] rounded-full text-red-300 font-semibold text-[9px]">
+                        Failed
+                      </button>
+                    )}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+              {/* <StyledTableRow>
                 <StyledTableCell style={{ width: "10%" }}>
                   12/04/1975
                 </StyledTableCell>
@@ -896,7 +909,7 @@ const Tables = ({
                     Pending
                   </button>
                 </StyledTableCell>
-              </StyledTableRow>
+              </StyledTableRow> */}
             </TableBody>
           </Table>
         </TableContainer>
@@ -1264,6 +1277,139 @@ const Tables = ({
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : cables ? (
+        <TableContainer
+          // component={Paper}
+          style={{ boxShadow: "none" }}
+        >
+          <Table
+            sx={{ minWidth: 700, tableLayout: "auto" }}
+            aria-label="customized table"
+          >
+            <TableHead>
+              <TableRow style={{ paddingRight: "0px" }}>
+                <StyledTableCell style={{ width: "10%" }}>
+                  DATE CREATED
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  SENDER'S NAME
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  SENDER'S ID
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  BENEFICIARY'S NAME
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  SERVICE PROVIDER
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  AMOUNT
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  TRANSACTION ID
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  STATUS
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <Moment format="YYYY-MM-DD">{item?.dateCreated}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {`${item?.user?.firstName} ${item?.user?.lastName}`}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.phoneNumber}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    ----------
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.network}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.amount}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.reference}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.status !== "failed" ? (
+                      <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
+                        Successful
+                      </button>
+                    ) : (
+                      <button className="bg-red-500 h-[30px] w-[100%] rounded-full text-red-300 font-semibold text-[9px]">
+                        Failed
+                      </button>
+                    )}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+              {/* <StyledTableRow>
+                <StyledTableCell style={{ width: "10%" }}>
+                  12/04/1975
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  Al-ameen Sodiq
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  07057007046
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  Al-ameen Sodiq
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  AIRTEL
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  200,000
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  WOFUFHKKDDL099
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  <button className="bg-pendingbg h-[30px] w-[100%] rounded-full text-pendingtext font-semibold text-[9px]">
+                    Pending
+                  </button>
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                <StyledTableCell style={{ width: "10%" }}>
+                  12/04/1975
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  Al-ameen Sodiq
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  07057007046
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  Al-ameen Sodiq
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  ETISALAT
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  200,000
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  WOFUFHKKDDL099
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  <button className="bg-pendingbg h-[30px] w-[100%] rounded-full text-pendingtext font-semibold text-[9px]">
+                    Pending
+                  </button>
+                </StyledTableCell>
+              </StyledTableRow> */}
             </TableBody>
           </Table>
         </TableContainer>

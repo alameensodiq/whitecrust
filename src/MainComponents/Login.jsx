@@ -25,12 +25,11 @@ const Login = () => {
 
   const Authentication = () => {
     const { username, password } = user;
-    if (
-      (username !== "" || username !== undefined) &&
-      (password !== "" || password !== undefined)
-    ) {
+    if (username && password) {
+      // This block executes only if both fields are filled
       dispatch(LoginUser({ username, password }));
       setLog(true);
+      console.log(username);
     } else {
       toast.error("Either Email or Password is empty");
     }
@@ -44,9 +43,12 @@ const Login = () => {
     });
   };
 
-  if (loginuser?.status !== "False" && log) {
+  console.log(loginuser?.status);
+
+  if (loginuser?.status && log) {
     console.log(loginuser?.status);
     console.log(!authenticating);
+    setLog(false);
     window.location.pathname = "/dashboard";
   }
 

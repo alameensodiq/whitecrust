@@ -77,11 +77,13 @@ const Loans = () => {
                 type="date"
                 className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
                 placeholder="Search by name, customerID, account number, transaction reference"
+                onChange={(e) => setStartDate(e.target.value)}
               />
               <input
                 type="date"
                 className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
                 placeholder="Search by name, customerID, account number, transaction reference"
+                onChange={(e) => setEndDate(e.target.value)}
               />
               <button className="px-2 flex flex-row gap-1 items-center bg-route-color w-[12%] rounded-custom text-white font-semibold text-[11px]">
                 Download Report <Download />

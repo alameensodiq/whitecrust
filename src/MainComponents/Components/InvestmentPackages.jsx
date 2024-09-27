@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../Reusables/Pagination";
 import { Investment } from "../Store/Apis/Investment";
+import toast from "react-hot-toast";
 
 const InvestmentPackages = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const InvestmentPackages = () => {
   const [postsPerPage, setPostsPerPage] = useState(50);
   const [search, setSearch] = useState("");
   const [activater, setActivater] = useState(1);
+  const [download, setDownload] = useState(false);
   const [endDate, setEndDate] = useState(
     new Date(Date.now() + 3600 * 1000 * 24)
   );
@@ -25,12 +27,12 @@ const InvestmentPackages = () => {
 
   useEffect(() => {
     // if(userData !== undefined && userData !== null){
-    dispatch(Investment({ endDate, startDate, currentPage, search }));
+    dispatch(Investment({ endDate, startDate, currentPage, search, download }));
 
     // } else {
     //   navigate("/");
     // }
-  }, [endDate, startDate, currentPage, search]);
+  }, [endDate, startDate, currentPage, search, download]);
 
   const { investment, authenticatinginvestment } = useSelector(
     (state) => state.investment
@@ -45,6 +47,72 @@ const InvestmentPackages = () => {
     //  setSorted(tran)
     setCurrentPage(number);
     setActivater(number);
+  };
+
+  const handleDownload = () => {
+    console.log("Starting download function");
+
+    // Log the current accounts state
+    console.log("Current accounts state:", investment);
+
+    // Check if accounts and the results array is available
+    if (
+      !investment ||
+      !investment.data ||
+      !Array.isArray(investment.data.results)
+    ) {
+      toast.error("Investment data is not loaded yet.");
+      return;
+    }
+
+    if (investment.data.results.length === 0) {
+      toast.error("No data available for download.");
+      return;
+    }
+
+    // Extract headers from the first item in the results, skipping object values
+    const headers = Object.keys(investment.data.results[0]).filter((key) => {
+      return typeof investment.data.results[0][key] !== "object";
+    });
+    console.log("Filtered Headers:", headers);
+
+    // Prepare the header row
+    const headerRow = headers.join(",");
+    console.log("Header Row:", headerRow);
+
+    // Prepare values for each row
+    const rows = investment.data.results
+      .map((item) => {
+        return headers
+          .map((header) => {
+            return item[header] !== undefined ? item[header] : "";
+          })
+          .join(",");
+      })
+      .join("\n");
+
+    console.log("Filtered Values:", rows);
+
+    // Combine header row and values into CSV format
+    const csv = [headerRow, rows].join("\n");
+    console.log("CSV Content:", csv);
+
+    // Create Blob and URL for download
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.download = `Investment_Report_${currentPage}.csv`; // Name the file appropriately
+    a.href = url;
+    document.body.appendChild(a); // Append to body for Firefox support
+    a.click();
+
+    // Cleanup
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    console.log("Download triggered");
+    setDownload(false);
   };
   return (
     <div className="flex flex-row">
@@ -90,7 +158,13 @@ const InvestmentPackages = () => {
                   placeholder="Search by name, customerID, account number, transaction reference"
                   onChange={(e) => setEndDate(e.target.value)}
                 />
-                <button className="px-2 flex flex-row gap-1 items-center bg-route-color w-[25%] rounded-custom text-white font-semibold text-[11px]">
+                <button
+                  onClick={() => {
+                    setDownload(true);
+                    handleDownload();
+                  }}
+                  className="px-2 flex flex-row gap-1 items-center bg-route-color w-[25%] rounded-custom text-white font-semibold text-[11px]"
+                >
                   Download Report <Download />
                 </button>
               </div>

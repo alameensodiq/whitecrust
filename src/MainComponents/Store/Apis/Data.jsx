@@ -1,19 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { userData } from "../../../userData";
 
-export const Transfer = createAsyncThunk(
-  "transfers",
+export const Datas = createAsyncThunk(
+  "datas",
   async ({ searcher, startDate, endDate, currentPage, download }, thunkAPI) => {
     const dateObj = new Date(startDate);
     const formattedDate = dateObj.toISOString().slice(0, 10);
     const dateObjs = new Date(endDate);
     const formattedDated = dateObjs.toISOString().slice(0, 10);
 
+    const accessToken = sessionStorage.getItem("token");
+
     try {
       // Construct the URL
-      const url = new URL(
-        `${process.env.REACT_APP_BASE_URL}superadmin/transfer`
-      );
+      const url = new URL(`${process.env.REACT_APP_BASE_URL}superadmin/data`);
       url.searchParams.append("search", searcher);
       url.searchParams.append("start_date", formattedDate);
       url.searchParams.append("end_date", formattedDated);
@@ -28,7 +29,7 @@ export const Transfer = createAsyncThunk(
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${userData}`,
           "Content-Type": "application/json",
           "X-Api-Key":
             "su2UlkakzIsaL1mehEfIRRhIKcfcYywkCsE1Ys435lF3rMQqST1OMzm9TErsuptjuLQn5yJ9QVPtlFKPMaGJw"

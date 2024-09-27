@@ -4,56 +4,46 @@ import { userData } from "../../../userData";
 
 export const Custom = createAsyncThunk(
   "custom",
-  async ({ searcher, startDate, endDate, currentPage}, thunkAPI) => {
-    console.log(process.env.REACT_APP_BASE_URL);
+  async ({ searcher, startDate, endDate, currentPage, download }, thunkAPI) => {
     const dateObj = new Date(startDate);
-
     const formattedDate = dateObj.toISOString().slice(0, 10);
-
     const dateObjs = new Date(endDate);
-
     const formattedDated = dateObjs.toISOString().slice(0, 10);
-    console.log(process.env.REACT_APP_BASE_URL);
-    const accessToken = sessionStorage.getItem('token')
+
+    const accessToken = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}superadmin/customers?search=${searcher}&start_date=${formattedDate}&end_date=${formattedDated}&page=${currentPage}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            // Authorization: `Bearer ${accessToken}`,
-            Authorization: `Bearer ${userData}`,
-            "Content-Type": "application/json",
-            "X-Api-Key":
-              "su2UlkakzIsaL1mehEfIRRhIKcfcYywkCsE1Ys435lF3rMQqST1OMzm9TErsuptjuLQn5yJ9QVPtlFKPMaGJw"
-          },
-        //   body: JSON.stringify({
-        //     data: {
-        //       filter,
-        //       month,
-        //       year
-        //     },
-        //     requestType: "inbound"
-        //   })
-        }
+      // Construct the URL
+      const url = new URL(
+        `${process.env.REACT_APP_BASE_URL}superadmin/customers`
       );
-      let data = await response.json();
+      url.searchParams.append("search", searcher);
+      url.searchParams.append("start_date", formattedDate);
+      url.searchParams.append("end_date", formattedDated);
+      url.searchParams.append("page", currentPage);
+
+      // Only append download parameter if true
+      if (download) {
+        url.searchParams.append("download", "true");
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${userData}`,
+          "Content-Type": "application/json",
+          "X-Api-Key":
+            "su2UlkakzIsaL1mehEfIRRhIKcfcYywkCsE1Ys435lF3rMQqST1OMzm9TErsuptjuLQn5yJ9QVPtlFKPMaGJw"
+        }
+      });
+
+      const data = await response.json();
       toast.success(data.message);
-      console.log(data);
-      // sessionStorage.setItem("token", data?.data?.accessToken);
-
-      // Decode the token using jwt-decode
-      //   const token = data?.data?.token;
-      //   const decodedToken = jwtDecode(token);
-      //   sessionStorage.setItem("role", decodedToken?.role);
-      //   console.log(decodedToken);
-
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue({
-        error: "Failed! To establish connection."
+        error: "Failed to establish connection."
       });
     }
   }
