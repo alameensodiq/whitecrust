@@ -11,6 +11,7 @@ import { ElectricitiesSlice } from "./Reducers/Electricities";
 import { DatasSlice } from "./Reducers/Datas";
 import { CablesSlice } from "./Reducers/Cables";
 import { AirtimesSlice } from "./Reducers/Airtime";
+import { AuditsSlice } from "./Reducers/Audits";
 
 export default configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export default configureStore({
     electricities: ElectricitiesSlice?.reducer,
     datas: DatasSlice?.reducer,
     cables: CablesSlice?.reducer,
-    airtime: AirtimesSlice?.reducer
+    airtime: AirtimesSlice?.reducer,
+    audits: AuditsSlice?.reducer
   }
 });

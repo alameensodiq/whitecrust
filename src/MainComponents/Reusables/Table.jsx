@@ -726,7 +726,26 @@ const Tables = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              <StyledTableRow>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    <Moment>{item?.created_on}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.user}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.action}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.system}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.browser}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+              {/* <StyledTableRow>
                 <StyledTableCell style={{ width: "20%" }}>
                   12/04/1975 09:11:04
                 </StyledTableCell>
@@ -759,24 +778,7 @@ const Tables = ({
                 <StyledTableCell style={{ width: "20%" }}>
                   Chrome
                 </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
-                <StyledTableCell style={{ width: "20%" }}>
-                  12/04/1975 09:11:04
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Al-ameen Sodiq
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Create User
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Macbook Pro 2020
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "20%" }}>
-                  Chrome
-                </StyledTableCell>
-              </StyledTableRow>
+              </StyledTableRow> */}
             </TableBody>
           </Table>
         </TableContainer>
