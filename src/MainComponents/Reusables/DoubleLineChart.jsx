@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-function DoubleLineChart() {
+function DoubleLineChart({ data }) {
   const series = [
     {
       //   name: "High - 2013",
-      data: [40, 80, 30, 10, 70, 20, 10]
-    },
-    {
-      //   name: "Low - 2013",
-      data: [10, 30, 70, 30, 90, 50, 60]
+      data: data
+        ? [
+            data?.find((item) => item?.month === "January")?.amount || 0,
+            data?.find((item) => item?.month === "February")?.amount || 0,
+            data?.find((item) => item?.month === "March")?.amount || 0,
+            data?.find((item) => item?.month === "April")?.amount || 0,
+            data?.find((item) => item?.month === "May")?.amount || 0,
+            data?.find((item) => item?.month === "June")?.amount || 0,
+            data?.find((item) => item?.month === "July")?.amount || 0,
+            data?.find((item) => item?.month === "August")?.amount || 0,
+            data?.find((item) => item?.month === "September")?.amount || 0,
+            data?.find((item) => item?.month === "October")?.amount || 0,
+            data?.find((item) => item?.month === "November")?.amount || 0,
+            data?.find((item) => item?.month === "December")?.amount || 0
+          ]
+        : Array(12).fill(0)
     }
+    // {
+    //   //   name: "Low - 2013",
+    //   data: [10, 30, 70, 30, 90, 50, 60]
+    // }
   ];
 
   const options = {
-    colors: ["#E9EDF5", "#263BD4"],
+    // "#E9EDF5",
+    colors: ["#263BD4"],
     chart: {
       height: 220,
       type: "line",
@@ -33,7 +49,20 @@ function DoubleLineChart() {
       width: 3
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
     },
     yaxis: {
       tickAmount: 5,

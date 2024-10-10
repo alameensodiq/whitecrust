@@ -949,36 +949,38 @@ const Tables = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              <StyledTableRow>
-                <StyledTableCell style={{ width: "10%" }}>1</StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  0124890900
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  AL-AMEEN SODIQ
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  alameensodiq@yahoo.com
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>
-                  07057007046
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>
-                  12/04/1975
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "10%" }}>
-                  12/04/2003
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  <button
-                    onClick={() => navigate("/customers/:id")}
-                    className="h-[30px] w-[100%] border border-none text-button-bg font-semibold text-[9px]"
-                  >
-                    View
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell style={{ width: "10%" }}>1</StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    ----
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.full_name}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    -----
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.phoneNumber}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <Moment format="DD-MM-YYYY">{item?.dob}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <Moment format="DD-MM-YYYY">{item?.dateCreated}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    <button
+                      onClick={() => navigate("/customers/:id")}
+                      className="h-[30px] w-[100%] border border-none text-button-bg font-semibold text-[9px]"
+                    >
+                      View
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+              {/* <StyledTableRow>
                 <StyledTableCell style={{ width: "10%" }}>2</StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
                   0124890900
@@ -1064,7 +1066,7 @@ const Tables = ({
                     View
                   </button>
                 </StyledTableCell>
-              </StyledTableRow>
+              </StyledTableRow> */}
             </TableBody>
           </Table>
         </TableContainer>

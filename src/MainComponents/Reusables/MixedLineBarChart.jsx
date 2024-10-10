@@ -1,16 +1,31 @@
 import Chart from "react-apexcharts";
 
-function MixedLineBarChart({color, background}) {
+function MixedLineBarChart({ color, background, data }) {
   const series = [
     {
       name: "Website Blog",
       type: "column",
-      data: [440, 505, 414, 671]
+      data: data
+        ? [
+            data?.find((item) => item?.month === "January")?.amount || 0,
+            data?.find((item) => item?.month === "February")?.amount || 0,
+            data?.find((item) => item?.month === "March")?.amount || 0,
+            data?.find((item) => item?.month === "April")?.amount || 0,
+            data?.find((item) => item?.month === "May")?.amount || 0,
+            data?.find((item) => item?.month === "June")?.amount || 0,
+            data?.find((item) => item?.month === "July")?.amount || 0,
+            data?.find((item) => item?.month === "August")?.amount || 0,
+            data?.find((item) => item?.month === "September")?.amount || 0,
+            data?.find((item) => item?.month === "October")?.amount || 0,
+            data?.find((item) => item?.month === "November")?.amount || 0,
+            data?.find((item) => item?.month === "December")?.amount || 0
+          ]
+        : Array(12).fill(0)
     },
     {
       name: "Social Media",
       type: "line",
-      data: [23, 402, 35, 207]
+      data: Array(12).fill(0)
     }
   ];
 
@@ -59,14 +74,27 @@ function MixedLineBarChart({color, background}) {
         show: false
       }
     },
-    labels: ["Jan", "Feb", "Mar", "Apr"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     legend: {
       show: false,
       fontSize: "11px"
     },
     fill: {
-      opacity: 0.4,
-    //   colors: background
+      opacity: 0.4
+      //   colors: background
     }
   };
 

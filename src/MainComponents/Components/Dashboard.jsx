@@ -19,11 +19,15 @@ import { userData } from "../../userData";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Dashboards } from "../Store/Apis/Dashboards";
+import { CustomerDashboard } from "../Store/Apis/CustomerDashboard";
+import { TransferDashboard } from "../Store/Apis/TransferDashboard";
+import { InvestmentDashboard } from "../Store/Apis/InvestmentDashboard";
+import { BillPaymentDashboard } from "../Store/Apis/BillPaymentDashboard";
+import { TransactionDashboards } from "../Store/Apis/TransactionDashboard";
 
 const Dashboard = () => {
-  const [endDate, setEndDate] = useState(
-    new Date(Date.now() + 3600 * 1000 * 24)
-  );
+  const [endDate, setEndDate] = useState(new Date("2022-01-01"));
+  const [startDate, setStartDate] = useState(new Date("2022-01-01"));
   const [filter, setFilter] = useState("");
   const [month, setMonth] = useState(1);
   const navigate = useNavigate();
@@ -33,21 +37,52 @@ const Dashboard = () => {
   const dateChanger = (date) => {
     console.log(date);
     setEndDate(date);
+    const dateObjs = new Date(endDate);
+    console.log(endDate);
+    const formattedDated = dateObjs.toISOString().slice(0, 10);
+    console.log(formattedDated);
   };
 
   useEffect(() => {
     console.log(userData);
     // if(userData !== undefined || userData !== null){
-    dispatch(Dashboards({ month, year: endDate, filter }));
+    dispatch(Dashboards());
+    dispatch(TransactionDashboards());
+    dispatch(BillPaymentDashboard({ startDate }));
+    dispatch(InvestmentDashboard());
+    dispatch(TransferDashboard({ endDate }));
+    dispatch(CustomerDashboard());
     // } else {
     //   navigate("/");
     // }
-  }, [userData, month, endDate, filter]);
+  }, [userData, month, endDate, filter, startDate]);
 
-  const { dashboards, authenticatingdshboards } = useSelector(
+  const { dashboards, authenticatingdashboards } = useSelector(
     (state) => state.dashboards
   );
   console.log(dashboards);
+
+  const { transactiondashboards, authenticatingtransactiondashboards } =
+    useSelector((state) => state.transactiondashboards);
+  console.log(transactiondashboards);
+
+  const { customerdashboards, authenticatingcustomerdashboardss } = useSelector(
+    (state) => state.customerdashboards
+  );
+  console.log(customerdashboards);
+
+  const { billpaymentdashboards, authenticatingbillpaymentdashboards } =
+    useSelector((state) => state.billpaymentdashboards);
+  console.log(billpaymentdashboards);
+
+  const { transferdashboards, authenticatingtransferdashboards } = useSelector(
+    (state) => state.transferdashboards
+  );
+  console.log(transferdashboards);
+
+  const { investmentdashboards, authenticatinginvestmentdashboards } =
+    useSelector((state) => state.investmentdashboards);
+  console.log(investmentdashboards);
 
   const PickDate = () => {
     datePickerRef.current.setOpen(true);
@@ -59,7 +94,7 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-col w-[85%] h-[100%]">
         <div className="w-[100%] h-[20%]">
-          <Navbar title={'Dashboard'}/>
+          <Navbar title={"Dashboard"} />
         </div>
         <div className="w-[100%] py-9 px-5 flex flex-col gap-7">
           <div className="flex lg:flex-row flex-col md:flex-col gap-3">
@@ -114,7 +149,10 @@ const Dashboard = () => {
                   Total Investments
                 </span>
                 <span className="text-color-user text-[20px] font-bold flex flex-wrap">
-                  ₦{dashboards?.data?.total_invest ? dashboards?.data?.total_invest : 0}
+                  ₦
+                  {dashboards?.data?.total_invest
+                    ? dashboards?.data?.total_invest
+                    : 0}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
                   <span>Count:{dashboards?.data?.count_invest}</span>
@@ -152,13 +190,17 @@ const Dashboard = () => {
               <div className="flex flex-row justify-center">
                 <span className="text-second-card-text">Investments</span>
               </div>
-              <MixedLineBarChart background={"#c7cbed"} color={"#344BFD"} />
+              <MixedLineBarChart
+                data={investmentdashboards?.data}
+                background={"#c7cbed"}
+                color={"#344BFD"}
+              />
               <div className="flex flex-row justify-center gap-2">
-                <span className="text-second-card-text text-[16px]">44%</span>
+                {/* <span className="text-second-card-text text-[16px]">44%</span>
                 <div className="flex flex-col text-compare-second-card text-[10px]">
                   <span>Your performance is 44%</span>
                   <span>better compare to last month</span>
-                </div>
+                </div> */}
               </div>
               <div className="flex -flex-row justify-center">
                 <button className="bg-details-bg w-[180px] text-[12px] h-[40px] text-details-color rounded-custom">
@@ -173,13 +215,17 @@ const Dashboard = () => {
               <div className="flex flex-row justify-center">
                 <span className="text-second-card-text">Transfers</span>
               </div>
-              <MixedLineBarChart color={"#05B2FA"} background={"#c3e2f0"} />
+              <MixedLineBarChart
+                data={transactiondashboards?.data}
+                color={"#05B2FA"}
+                background={"#c3e2f0"}
+              />
               <div className="flex flex-row justify-center gap-2">
-                <span className="text-second-card-text text-[16px]">44%</span>
+                {/* <span className="text-second-card-text text-[16px]">44%</span>
                 <div className="flex flex-col text-compare-second-card text-[10px]">
                   <span>Your performance is 44%</span>
                   <span>better compare to last month</span>
-                </div>
+                </div> */}
               </div>
               <div className="flex -flex-row justify-center">
                 <button className="bg-details-colortwo w-[180px] text-[12px] h-[40px] text-details-bgtwo rounded-custom">
@@ -199,11 +245,11 @@ const Dashboard = () => {
                 background={"rgba(255, 160, 81, 0.2)"}
               />
               <div className="flex flex-row justify-center gap-2">
-                <span className="text-second-card-text text-[16px]">44%</span>
+                {/* <span className="text-second-card-text text-[16px]">44%</span>
                 <div className="flex flex-col text-compare-second-card text-[10px]">
                   <span>Your performance is 44%</span>
                   <span>better compare to last month</span>
-                </div>
+                </div> */}
               </div>
               <div className="flex -flex-row justify-center">
                 <button className="bg-details-loanbg w-[180px] text-[12px] h-[40px] text-details-loancolor rounded-custom">
@@ -217,9 +263,9 @@ const Dashboard = () => {
             >
               <div className="flex flex-row px-4 gap-4 items-center justify-end">
                 <span className="text-[14px]">Bill payments</span>
-                <div className="position:relative w-[120px] h-[30px] rounded-custom px-[5px] flex flex-row border items-center">
-                  {/* <input className='input' type='date' /> */}
-                  <DatePicker
+                {/* <div className="position:relative w-[120px] h-[30px] rounded-custom px-[5px] flex flex-row border items-center"> */}
+                {/* <input className='input' type='date' /> */}
+                {/* <DatePicker
                     className="text-[8px]"
                     selected={endDate}
                     onChange={(date) => dateChanger(date)}
@@ -232,35 +278,49 @@ const Dashboard = () => {
                   <Calendar
                     className="text-[10px]"
                     onClick={() => PickDate()}
-                  />
-                </div>
+                  /> */}
+                <input
+                  type="date"
+                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                  placeholder="Search by name, customerID, account number, transaction reference"
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+                {/* </div> */}
               </div>
-              <Donuts />
+              <Donuts data={billpaymentdashboards?.data} />
               <div className="flex flex-col gap-3 px-[15px]">
-                <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-20 md:gap-20 sm:gap-6">
+                <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-10 md:gap-20 sm:gap-6">
                   <div className="flex flex-row gap-1 items-center text-[12px]">
                     <span className="w-[15px] h-[15px] rounded-circle bg-details-color"></span>
                     <span className="text-compare-second-card">Airtel</span>
-                    <span className="text-circle-color">30k</span>
+                    <span className="text-circle-color">
+                      {billpaymentdashboards?.data?.total_airtime_amount}
+                    </span>
                   </div>
                   <div className="flex flex-row gap-1 items-center text-[12px]">
                     <span className="w-[15px] h-[15px] rounded-circle bg-cable-bg"></span>
                     <span className="text-compare-second-card">Cable</span>
-                    <span className="text-circle-color">30k</span>
+                    <span className="text-circle-color">
+                      {billpaymentdashboards?.data?.total_cable_amount}
+                    </span>
                   </div>
                 </div>
-                <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-20 md:gap-20 sm:gap-6">
+                <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-10 md:gap-20 sm:gap-6">
                   <div className="flex flex-row gap-1 items-center text-[12px]">
                     <span className="w-[15px] h-[15px] rounded-circle bg-data-bg"></span>
                     <span className="text-compare-second-card">Data</span>
-                    <span className="text-circle-color">30k</span>
+                    <span className="text-circle-color">
+                      {billpaymentdashboards?.data?.total_data_amount}
+                    </span>
                   </div>
                   <div className="flex flex-row gap-1 items-center text-[12px]">
                     <span className="w-[15px] h-[15px] rounded-circle bg-elect-bg"></span>
                     <span className="text-compare-second-card">
                       Electricity
                     </span>
-                    <span className="text-circle-color">30k</span>
+                    <span className="text-circle-color">
+                      {billpaymentdashboards?.data?.total_electricity_amount}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -276,9 +336,9 @@ const Dashboard = () => {
             <div className="flex flex-col border rounded-custom gap-2 pt-3">
               <div className="flex flex-row px-4 gap-4 items-center justify-end">
                 <span className="text-[14px]">Previous Month</span>
-                <div className="position:relative w-[120px] h-[30px] rounded-custom px-[4px] flex flex-row border items-center">
-                  {/* <input className='input' type='date' /> */}
-                  <DatePicker
+                {/* <div className="position:relative w-[120px] h-[30px] rounded-custom px-[4px] flex flex-row border items-center"> */}
+                {/* <input className='input' type='date' /> */}
+                {/* <DatePicker
                     className="text-[8px] outline-none"
                     selected={endDate}
                     onChange={(date) => dateChanger(date)}
@@ -291,11 +351,17 @@ const Dashboard = () => {
                   <Calendar
                     className="text-[10px]"
                     onClick={() => PickDate()}
-                  />
-                </div>
+                  /> */}
+                <input
+                  type="date"
+                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                  placeholder="Search by name, customerID, account number, transaction reference"
+                  onChange={(e) => dateChanger(e.target.value)}
+                />
+                {/* </div> */}
                 <Ellipses />
               </div>
-              <DoubleLineChart />
+              <DoubleLineChart data={transferdashboards?.data} />
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -309,7 +375,7 @@ const Dashboard = () => {
                 <Filtering />
                 <span className="text-[14px]">Filters</span>
               </div>
-              <Tables overview />
+              <Tables overview data={customerdashboards?.data?.results} />
             </div>
           </div>
         </div>

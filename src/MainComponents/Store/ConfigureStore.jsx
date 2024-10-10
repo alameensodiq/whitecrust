@@ -12,6 +12,11 @@ import { DatasSlice } from "./Reducers/Datas";
 import { CablesSlice } from "./Reducers/Cables";
 import { AirtimesSlice } from "./Reducers/Airtime";
 import { AuditsSlice } from "./Reducers/Audits";
+import { TransactionDashboardSlice } from "./Reducers/TransactionDashboard";
+import { CustomerDashboardSlice } from "./Reducers/CustomerDashboard";
+import { BillPaymentDashboardSlice } from "./Reducers/BillPaymentDashboard";
+import { TransferDashboardSlice } from "./Reducers/TransferDashboard";
+import { InvestmentDashboardSlice } from "./Reducers/InvestmentDashboard";
 
 export default configureStore({
   reducer: {
@@ -27,6 +32,11 @@ export default configureStore({
     datas: DatasSlice?.reducer,
     cables: CablesSlice?.reducer,
     airtime: AirtimesSlice?.reducer,
-    audits: AuditsSlice?.reducer
+    audits: AuditsSlice?.reducer,
+    transactiondashboards: TransactionDashboardSlice?.reducer,
+    customerdashboards: CustomerDashboardSlice?.reducer,
+    billpaymentdashboards: BillPaymentDashboardSlice?.reducer,
+    transferdashboards: TransferDashboardSlice?.reducer,
+    investmentdashboards: InvestmentDashboardSlice?.reducer
   }
 });
