@@ -978,7 +978,13 @@ const Tables = ({
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     <button
-                      onClick={() => navigate("/customers/:id")}
+                      onClick={() => {
+                        navigate("/customers/:id");
+                        sessionStorage.setItem(
+                          "customerDetails",
+                          JSON.stringify(item)
+                        );
+                      }}
                       className="h-[30px] w-[100%] border border-none text-button-bg font-semibold text-[9px]"
                     >
                       View

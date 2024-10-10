@@ -7,7 +7,9 @@ import Navbar from "../Reusables/Navbar";
 
 const CustomerInfo = () => {
   const customerDetails = JSON.parse(sessionStorage.getItem("customerDetails"));
-  useEffect(() => {}, []);
+  useEffect(() => {
+    return () => {};
+  }, []);
 
   console.log(customerDetails);
   return (
@@ -97,7 +99,7 @@ const CustomerInfo = () => {
                     LIMIT PER TRANSFER
                   </span>
                   <span className=" text-[10px] px-[10px] py-[10px] text-color-user">
-                    ₦--------
+                    ₦{customerDetails?.tier?.transferLimit}
                   </span>
                 </div>
                 <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
@@ -105,7 +107,7 @@ const CustomerInfo = () => {
                     DAILY TRANSFER LIMIT
                   </span>
                   <span className="text-[10px] px-[10px] py-[10px] text-color-user">
-                    ₦00000000
+                    ₦{customerDetails?.tier?.dailyLimit}
                   </span>
                 </div>
               </div>
@@ -135,7 +137,7 @@ const CustomerInfo = () => {
                     TIER
                   </span>
                   <select className="text-[10px] outline-none px-[10px] py-[10px] text-color-user">
-                    <option>{customerDetails?.tier}</option>
+                    <option>{customerDetails?.tier?.tier}</option>
                   </select>
                 </div>
                 <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
