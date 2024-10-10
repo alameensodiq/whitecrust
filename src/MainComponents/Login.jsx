@@ -45,7 +45,7 @@ const Login = () => {
 
   console.log(loginuser?.status);
 
-  if (loginuser?.status !== "False" && log) {
+  if (loginuser?.status && log) {
     console.log(loginuser?.status);
     console.log(!authenticating);
     setLog(false);

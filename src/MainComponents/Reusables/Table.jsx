@@ -139,7 +139,13 @@ const Tables = ({
                   <StyledTableCell style={{ width: "10%" }}>
                     <p
                       className="text-route-color"
-                      onClick={() => navigate("/customers/:id")}
+                      onClick={() => {
+                        navigate("/customers/:id");
+                        sessionStorage.setItem(
+                          "customerDetails",
+                          JSON.stringify(item)
+                        );
+                      }}
                     >
                       View
                     </p>
