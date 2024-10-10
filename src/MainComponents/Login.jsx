@@ -49,7 +49,7 @@ const Login = () => {
     console.log(loginuser?.status);
     console.log(!authenticating);
     setLog(false);
-    // window.location.pathname = "/dashboard";
+    window.location.pathname = "/dashboard";
   }
 
   return (
