@@ -12,8 +12,11 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "../Reusables/Pagination";
 import { Investment } from "../Store/Apis/Investment";
 import toast from "react-hot-toast";
+import AppUserModal from "../Reusables/Modal/AppUserModal";
 
 const InvestmentTypes = () => {
+  const [step, setStep] = useState(0);
+  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
@@ -124,12 +127,16 @@ const InvestmentTypes = () => {
         <div className="w-[100%] h-[20%]">
           <Navbar title={"Investments"} />
         </div>
+        <AppUserModal setStep={setStep} step={step} setReload={setReload} />
         <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
           <div className="flex flex-row justify-between">
             <span className="text-route-name text-[28px] font-semibold">
               Investment Types
             </span>
-            <button className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]">
+            <button
+              onClick={() => setStep(1)}
+              className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]"
+            >
               <Plus />
               Create Investment Type
             </button>

@@ -2,48 +2,39 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { userData } from "../../../userData";
 
-export const Loan = createAsyncThunk(
-  "loan",
-  async ({ startDate, endDate, currentPage, search }, thunkAPI) => {
+export const CreateInvestment = createAsyncThunk(
+  "createinvestment",
+  async ({ content }, thunkAPI) => {
+    console.log(content);
     console.log(process.env.REACT_APP_BASE_URL);
-    const dateObj = new Date(startDate);
-
-    const formattedDate = dateObj.toISOString().slice(0, 10);
-
-    const dateObjs = new Date(endDate);
-
-    const formattedDated = dateObjs.toISOString().slice(0, 10);
-    console.log(process.env.REACT_APP_BASE_URL);
-    const accessToken = sessionStorage.getItem("token");
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}superadmin/loan?start_date=${formattedDate}&end_date=${formattedDated}&page=${currentPage}&search=${search}`,
+        `${process.env.REACT_APP_BASE_URL}superadmin/investment`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             Accept: "application/json",
-            // Authorization: `Bearer ${accessToken}`,
             Authorization: `Bearer ${userData}`,
             "Content-Type": "application/json",
             "X-Api-Key":
               "su2UlkakzIsaL1mehEfIRRhIKcfcYywkCsE1Ys435lF3rMQqST1OMzm9TErsuptjuLQn5yJ9QVPtlFKPMaGJw"
-          }
-          //   body: JSON.stringify({
-          //     data: {
-          //       filter,
-          //       month,
-          //       year
-          //     },
-          //     requestType: "inbound"
-          //   })
+          },
+          body: JSON.stringify({
+            data: content,
+            requestType: "inbound"
+          })
         }
       );
       let data = await response.json();
-      if (!data?.status) {
+      if (data?.status === "True") {
+        toast.success(data.message);
+      }
+      if (data?.status === "False") {
         toast.error(data.message);
       }
       console.log(data);
+      // sessionStorage.setItem("token", data?.data?.accessToken);
 
       // Decode the token using jwt-decode
       //   const token = data?.data?.token;

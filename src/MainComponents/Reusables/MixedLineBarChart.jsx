@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 function MixedLineBarChart({ color, background, data }) {
   const series = [
     {
-      name: "Website Blog",
+      name: "Amount",
       type: "column",
       data: data
         ? [
@@ -21,12 +21,12 @@ function MixedLineBarChart({ color, background, data }) {
             data?.find((item) => item?.month === "December")?.amount || 0
           ]
         : Array(12).fill(0)
-    },
-    {
-      name: "Social Media",
-      type: "line",
-      data: Array(12).fill(0)
     }
+    // {
+    //   // name: "Social Media",
+    //   type: "line",
+    //   data: Array(12).fill(0)
+    // }
   ];
 
   const options = {

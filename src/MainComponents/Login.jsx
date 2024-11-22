@@ -43,7 +43,7 @@ const Login = () => {
     });
   };
 
-  console.log(loginuser?.status);
+  console.log(loginuser);
 
   if (loginuser?.status && log) {
     console.log(loginuser?.status);

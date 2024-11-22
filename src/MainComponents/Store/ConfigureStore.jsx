@@ -17,6 +17,7 @@ import { CustomerDashboardSlice } from "./Reducers/CustomerDashboard";
 import { BillPaymentDashboardSlice } from "./Reducers/BillPaymentDashboard";
 import { TransferDashboardSlice } from "./Reducers/TransferDashboard";
 import { InvestmentDashboardSlice } from "./Reducers/InvestmentDashboard";
+import { CreateInvestmentSlice } from "./Reducers/CreateInvestment";
 
 export default configureStore({
   reducer: {
@@ -37,6 +38,7 @@ export default configureStore({
     customerdashboards: CustomerDashboardSlice?.reducer,
     billpaymentdashboards: BillPaymentDashboardSlice?.reducer,
     transferdashboards: TransferDashboardSlice?.reducer,
-    investmentdashboards: InvestmentDashboardSlice?.reducer
+    investmentdashboards: InvestmentDashboardSlice?.reducer,
+    createinvest: CreateInvestmentSlice?.reducer
   }
 });

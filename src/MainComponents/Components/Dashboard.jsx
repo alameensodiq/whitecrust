@@ -55,7 +55,7 @@ const Dashboard = () => {
     // } else {
     //   navigate("/");
     // }
-  }, [userData, month, endDate, filter, startDate]);
+  }, [userData, month, endDate, filter, startDate, dispatch]);
 
   const { dashboards, authenticatingdashboards } = useSelector(
     (state) => state.dashboards
@@ -87,6 +87,11 @@ const Dashboard = () => {
   const PickDate = () => {
     datePickerRef.current.setOpen(true);
   };
+
+  const formatNumberWithCommas = (number) => {
+    if (number == null) return "0"; // Handle null or undefined
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   return (
     <div className="flex flex-row">
       <div className="w-[15%] h-[100%]">
@@ -105,7 +110,7 @@ const Dashboard = () => {
               <div className="w-[75%] flex flex-col gap-2 mt-10 px-5">
                 <span className="text-card-title text-[14px]">Total Users</span>
                 <span className="text-color-user text-[20px] font-bold">
-                  {dashboards?.data?.total_user}
+                  {formatNumberWithCommas(dashboards?.data?.total_user)}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
                   <span>
@@ -130,7 +135,7 @@ const Dashboard = () => {
                   Total Transfers
                 </span>
                 <span className="text-color-user text-[20px] font-bold">
-                  ₦{dashboards?.data?.total_transfer}
+                  ₦{formatNumberWithCommas(dashboards?.data?.total_transfer)}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
                   <span>Count: {dashboards?.data?.count_tranfer}</span>
@@ -151,7 +156,7 @@ const Dashboard = () => {
                 <span className="text-color-user text-[20px] font-bold flex flex-wrap">
                   ₦
                   {dashboards?.data?.total_invest
-                    ? dashboards?.data?.total_invest
+                    ? formatNumberWithCommas(dashboards?.data?.total_invest)
                     : 0}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
@@ -171,7 +176,7 @@ const Dashboard = () => {
                   Total Bill Payments
                 </span>
                 <span className="text-color-user text-[20px] font-bold flex flex-wrap">
-                  ₦{dashboards?.data?.total_billpayment}
+                  ₦{formatNumberWithCommas(dashboards?.data?.total_billpayment)}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
                   <span>Count: {dashboards?.data?.count_billpayment}</span>
@@ -203,7 +208,10 @@ const Dashboard = () => {
                 </div> */}
               </div>
               <div className="flex -flex-row justify-center">
-                <button className="bg-details-bg w-[180px] text-[12px] h-[40px] text-details-color rounded-custom">
+                <button
+                  onClick={() => navigate("/investments")}
+                  className="bg-details-bg w-[180px] text-[12px] h-[40px] text-details-color rounded-custom cursor-pointer"
+                >
                   Details
                 </button>
               </div>
@@ -228,7 +236,10 @@ const Dashboard = () => {
                 </div> */}
               </div>
               <div className="flex -flex-row justify-center">
-                <button className="bg-details-colortwo w-[180px] text-[12px] h-[40px] text-details-bgtwo rounded-custom">
+                <button
+                  onClick={() => navigate("/transfers")}
+                  className="bg-details-colortwo w-[180px] text-[12px] h-[40px] text-details-bgtwo rounded-custom cursor-pointer"
+                >
                   Details
                 </button>
               </div>
@@ -252,7 +263,10 @@ const Dashboard = () => {
                 </div> */}
               </div>
               <div className="flex -flex-row justify-center">
-                <button className="bg-details-loanbg w-[180px] text-[12px] h-[40px] text-details-loancolor rounded-custom">
+                <button
+                  onClick={() => navigate("/loans")}
+                  className="bg-details-loanbg w-[180px] text-[12px] h-[40px] text-details-loancolor rounded-custom"
+                >
                   Details
                 </button>
               </div>

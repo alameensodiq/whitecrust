@@ -32,7 +32,9 @@ export const TransactionDashboards = createAsyncThunk(
         }
       );
       let data = await response.json();
-      toast.success(data.message);
+      if (!data?.status) {
+        toast.error(data.message);
+      }
       console.log(data);
 
       // Decode the token using jwt-decode

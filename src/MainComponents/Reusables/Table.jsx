@@ -21,7 +21,8 @@ const Tables = ({
   account,
   investmentstypes,
   investmentspackages,
-  cables
+  cables,
+  report
 }) => {
   const navigate = useNavigate();
   const theme = createTheme({
@@ -123,18 +124,20 @@ const Tables = ({
                     className="text-dob"
                     style={{ width: "15%" }}
                   >
-                    {item?.dob}
+                    {item?.dob ? item?.dob : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.otherName}
+                    {item?.full_name ? item?.full_name : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.phoneNumber}
+                    {item?.email ? item?.email : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.phoneNumber ? item?.phoneNumber : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.gender}
+                    {item?.gender ? item?.gender : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     <p
@@ -242,21 +245,23 @@ const Tables = ({
                   <StyledTableCell style={{ width: "10%" }}>
                     <Moment format="DD-MM-YYYY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
-                  <StyledTableCell style={{ width: "10%" }}>
-                    {item?.sentFrom}
-                  </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.beneficiaryName}
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>
-                    {item?.accountNo}
+                    {item?.sent_from_name ? item?.sent_from_name : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.amount}
+                    {item?.sentFrom ? item?.sentFrom : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.reference}
+                    {item?.beneficiaryName ? item?.beneficiaryName : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.accountNo ? item?.accountNo : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.amount ? item?.amount : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.reference ? item?.reference : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
@@ -364,15 +369,24 @@ const Tables = ({
                     {index + 1}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.accountNo}
+                    {item?.accountNo ? item?.accountNo : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.profile?.otherName}
+                    {item?.profile?.otherName
+                      ? item?.profile?.otherName
+                      : "N/A"}
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.profile?.phoneNumber}
+                    {item?.email ? item?.email : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {" "}
+                    {item?.profile?.phoneNumber
+                      ? item?.profile?.phoneNumber
+                      : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.profile?.dob ? item?.profile?.dob : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     <Moment format="DD/MM/YY">
@@ -499,13 +513,15 @@ const Tables = ({
                     <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.investorName}
+                    {item?.investmentUser ? item?.investmentUser : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.investmentInfo[0]?.name}
+                    {item?.investmentInfo[0]?.name
+                      ? item?.investmentInfo[0]?.name
+                      : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.duration} days
+                    {item?.duration ? item?.duration : "0"} days
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {/* <Moment format="DD/MM/YYY">
@@ -514,13 +530,15 @@ const Tables = ({
                     ----
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.amount}
+                    {item?.amount ? item?.amount : 0}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.interestAmount}
+                    {item?.interestAmount ? item?.interestAmount : 0}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.currentInterestYeild}
+                    {item?.currentInterestYeild
+                      ? item?.currentInterestYeild
+                      : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.status === "running" ? (
@@ -738,16 +756,16 @@ const Tables = ({
                     <Moment>{item?.created_on}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {item?.user}
+                    {item?.user ? item?.user : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {item?.action}
+                    {item?.action ? item?.action : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {item?.system}
+                    {item?.device ? item?.device : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {item?.browser}
+                    {item?.browser ? item?.browser : "N/A"}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -959,13 +977,15 @@ const Tables = ({
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "10%" }}>1</StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    ----
+                    {item?.user_account?.accountNo
+                      ? item?.user_account?.accountNo
+                      : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.full_name}
+                    {item?.full_name ? item?.full_name : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    -----
+                    {item?.email ? item?.email : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.phoneNumber}
@@ -1093,7 +1113,7 @@ const Tables = ({
           >
             <TableHead>
               <TableRow style={{ paddingRight: "0px" }}>
-                <StyledTableCell style={{ width: "20%" }}>ID</StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}>S/N</StyledTableCell>
                 <StyledTableCell style={{ width: "20%" }}>NAME</StyledTableCell>
                 <StyledTableCell style={{ width: "20%" }}>
                   DURATION
@@ -1107,13 +1127,13 @@ const Tables = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((item) => (
+              {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell
                     className="text-dob"
                     style={{ width: "20%" }}
                   >
-                    {item?.id}
+                    {index + 1}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
                     {item?.name}
@@ -1125,30 +1145,30 @@ const Tables = ({
                     <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {/* {item?.status === "running" ? (
+                    {item?.status === "inactive" ? (
                       <button
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "100%",
-                          height: "100%",
-                          background: "#8a8a7d",
-                          color: "#e6df19",
+                          width: "40%",
+                          height: "20px",
+                          background: "#ed7d6c",
+                          color: "#f4270b",
                           gap: "6px",
                           borderRadius: "6px"
                         }}
                       >
                         <span
                           style={{
-                            background: "#e5e999",
+                            background: "#f4270b",
                             width: "6px",
                             height: "6px",
                             borderRadius: "50%"
                           }}
                         ></span>{" "}
-                        Pending
+                        Inactive
                       </button>
                     ) : (
                       <button
@@ -1157,8 +1177,8 @@ const Tables = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "100%",
-                          height: "100%",
+                          width: "50%",
+                          height: "20px",
                           background: "#ECFDF3",
                           color: "#027A48",
                           gap: "6px",
@@ -1175,7 +1195,7 @@ const Tables = ({
                         ></span>{" "}
                         Active
                       </button>
-                    )} */}
+                    )}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -1239,24 +1259,24 @@ const Tables = ({
                     <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {/* {item?.status === "running" ? (
+                    {item?.status === "inactive" ? (
                       <button
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "100%",
-                          height: "100%",
-                          background: "#8a8a7d",
-                          color: "#e6df19",
+                          width: "40%",
+                          height: "20px",
+                          background: "#ed7d6c",
+                          color: "#f4270b",
                           gap: "6px",
                           borderRadius: "6px"
                         }}
                       >
                         <span
                           style={{
-                            background: "#e5e999",
+                            background: "#f4270b",
                             width: "6px",
                             height: "6px",
                             borderRadius: "50%"
@@ -1271,8 +1291,8 @@ const Tables = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "100%",
-                          height: "100%",
+                          width: "50%",
+                          height: "20px",
                           background: "#ECFDF3",
                           color: "#027A48",
                           gap: "6px",
@@ -1289,7 +1309,7 @@ const Tables = ({
                         ></span>{" "}
                         Active
                       </button>
-                    )} */}
+                    )}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -1426,6 +1446,147 @@ const Tables = ({
                   </button>
                 </StyledTableCell>
               </StyledTableRow> */}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : report ? (
+        <TableContainer
+          // component={Paper}
+          style={{ boxShadow: "none" }}
+        >
+          <Table
+            sx={{ minWidth: 1350, tableLayout: "auto" }}
+            aria-label="customized table"
+          >
+            <TableHead>
+              <TableRow style={{ paddingRight: "0px" }}>
+                <StyledTableCell style={{ width: "10%" }}>
+                  Date Created
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}>
+                  DESCRIPTION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}>
+                  USER’S Name
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}>
+                  REFERENCE Number
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  AMOUNT (₦)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}>
+                  STATUS
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.map((item) => (
+                <StyledTableRow>
+                  <StyledTableCell
+                    className="text-dob"
+                    style={{ width: "10%" }}
+                  >
+                    <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {"N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {"N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.duration ? item?.duration : "0"} days
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {/* <Moment format="DD/MM/YYY">
+                    {item?.investmentInfo?.dateCreated}
+                  </Moment> */}
+                    ----
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "20%" }}>
+                    {item?.status === "running" ? (
+                      <button
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "80%",
+                          height: "20px",
+                          background: "#8a8a7d",
+                          color: "#e6df19",
+                          gap: "6px",
+                          borderRadius: "6px"
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#e5e999",
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%"
+                          }}
+                        ></span>{" "}
+                        Pending
+                      </button>
+                    ) : item?.status === "Success" ? (
+                      <button
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "80%",
+                          height: "20px",
+                          background: "#ECFDF3",
+                          color: "#027A48",
+                          gap: "6px",
+                          borderRadius: "6px"
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#027A48",
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%"
+                          }}
+                        ></span>{" "}
+                        Successful
+                      </button>
+                    ) : (
+                      <button
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "80%",
+                          height: "20px",
+                          background: "#FFCCCC",
+                          color: "#FF0000",
+                          gap: "6px",
+                          borderRadius: "6px"
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#FF0000",
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%"
+                          }}
+                        ></span>{" "}
+                        Successful
+                      </button>
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    <span style={{ color: "#263BD4" }}>View</span>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

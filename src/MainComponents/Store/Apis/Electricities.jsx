@@ -39,7 +39,9 @@ export const Electricities = createAsyncThunk(
       });
 
       const data = await response.json();
-      toast.success(data.message);
+      if (!data?.status) {
+        toast.error(data.message);
+      }
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue({

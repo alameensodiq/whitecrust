@@ -35,7 +35,9 @@ export const Investment = createAsyncThunk(
       });
 
       let data = await response.json();
-      toast.success(data.message);
+      if (!data?.status) {
+        toast.error(data.message);
+      }
       console.log(data);
 
       return data;

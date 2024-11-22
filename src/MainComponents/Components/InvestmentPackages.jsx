@@ -11,9 +11,12 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "../Reusables/Pagination";
 import { Investment } from "../Store/Apis/Investment";
 import toast from "react-hot-toast";
+import AppUserModal from "../Reusables/Modal/AppUserModal";
 
 const InvestmentPackages = () => {
   const navigate = useNavigate();
+  const [step, setStep] = useState(0);
+  const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(50);
@@ -28,11 +31,16 @@ const InvestmentPackages = () => {
   useEffect(() => {
     // if(userData !== undefined && userData !== null){
     dispatch(Investment({ endDate, startDate, currentPage, search, download }));
+    if (reload) {
+      dispatch(
+        Investment({ endDate, startDate, currentPage, search, download })
+      );
+    }
 
     // } else {
     //   navigate("/");
     // }
-  }, [endDate, startDate, currentPage, search, download]);
+  }, [endDate, startDate, currentPage, search, download, reload]);
 
   const { investment, authenticatinginvestment } = useSelector(
     (state) => state.investment
@@ -119,6 +127,7 @@ const InvestmentPackages = () => {
       <div className="w-[15%] h-[100%]">
         <Sidebar />
       </div>
+      <AppUserModal setStep={setStep} step={step} setReload={setReload} />
       <div className="flex flex-col w-[85%] h-[100%]">
         <div className="w-[100%] h-[20%]">
           <Navbar title={"Investments"} />
@@ -128,7 +137,10 @@ const InvestmentPackages = () => {
             <span className="text-route-name text-[28px] font-semibold">
               Investment Packages
             </span>
-            <button className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]">
+            <button
+              onClick={() => setStep(2)}
+              className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]"
+            >
               <Plus />
               Create Investment Package
             </button>
