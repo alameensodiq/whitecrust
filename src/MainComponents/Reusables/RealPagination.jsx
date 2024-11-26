@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Pagination = ({
+const RealPagination = ({
   postsPerPage,
   totalPosts,
   paginate,
@@ -11,30 +11,43 @@ const Pagination = ({
   const [news, setNews] = useState(0);
   const [old, setOld] = useState(3);
 
-  // Log values for debugging
-  console.log("totalPosts:", totalPosts);
-  console.log("postsPerPage:", postsPerPage);
+  const PageNumbers = [];
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    PageNumbers.push(i);
+  }
 
-  const validPostsPerPage = Math.max(1, postsPerPage);
-  const totalPages =
-    totalPosts > 0 ? Math.max(1, Math.ceil(totalPosts / validPostsPerPage)) : 0;
-
-  const PageNumbers = [...Array(totalPages)].map((_, i) => i + 1);
-  const recent = PageNumbers.slice(news, Math.min(old, totalPages));
+  const recent = PageNumbers?.slice(news, old);
 
   const backward = () => {
-    if (news > 0) {
-      const newNews = Math.max(0, news - 3);
-      setNews(newNews);
-      setOld(Math.min(newNews + 3, totalPages));
+    if (news === 0 || news === PageNumbers[0]) {
+      setNews(0);
+      setOld(old);
+    } else if (news !== PageNumbers[0] && news - 10 < PageNumbers[0]) {
+      const newNews = Math.max(0, news - 10);
+      setNews(0);
+      setOld(PageNumbers?.length > 10 ? old + 10 : PageNumbers?.length);
+    } else if (news !== PageNumbers[0] && news - 10 > PageNumbers[0]) {
+      setNews(news - 10);
+      setOld(old - 10);
     }
   };
 
   const forward = () => {
-    if (old < totalPages) {
-      const newNews = Math.min(totalPages - 3, news + 3);
-      setNews(newNews);
-      setOld(Math.min(newNews + 3, totalPages));
+    if (old === PageNumbers[PageNumbers?.length - 1]) {
+      setOld(old);
+      setNews(news);
+    } else if (
+      old !== PageNumbers[PageNumbers?.length - 1] &&
+      old + 10 > PageNumbers[PageNumbers?.length - 1]
+    ) {
+      setOld(old + (PageNumbers?.length - old));
+      setNews(news + (PageNumbers?.length - old));
+    } else if (
+      old !== PageNumbers[PageNumbers?.length - 1] &&
+      old + 10 < PageNumbers[PageNumbers?.length - 1]
+    ) {
+      setOld(old + 10);
+      setNews(news + 10);
     }
   };
 
@@ -117,4 +130,4 @@ const Pagination = ({
   );
 };
 
-export default Pagination;
+export default RealPagination;
