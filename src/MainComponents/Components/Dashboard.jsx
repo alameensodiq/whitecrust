@@ -155,12 +155,12 @@ const Dashboard = () => {
                 </span>
                 <span className="text-color-user text-[20px] font-bold flex flex-wrap">
                   ₦
-                  {dashboards?.data?.total_invest
-                    ? formatNumberWithCommas(dashboards?.data?.total_invest)
+                  {dashboards?.data?.total_investment
+                    ? formatNumberWithCommas(dashboards?.data?.total_investment)
                     : 0}
                 </span>
                 <div className="flex flex-row gap-1 text-[10px]">
-                  <span>Count:{dashboards?.data?.count_invest}</span>
+                  <span>Count:{dashboards?.data?.count_investment}</span>
                 </div>
               </div>
               <div>
