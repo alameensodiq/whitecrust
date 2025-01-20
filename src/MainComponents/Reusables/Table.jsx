@@ -973,9 +973,11 @@ const Tables = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((item) => (
+              {data?.map((item, index) => (
                 <StyledTableRow>
-                  <StyledTableCell style={{ width: "10%" }}>1</StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {index + 1}
+                  </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.user_account?.accountNo
                       ? item?.user_account?.accountNo

@@ -61,7 +61,7 @@ const Transfers = () => {
 
   const next = transfers?.data?.next;
   const previous = transfers?.data?.previous;
-  const totalPosts = otherbank?.length;
+  const totalPosts = transfers?.data?.count;
 
   const paginate = (number) => {
     //  setSorted(tran)
@@ -226,7 +226,8 @@ const Transfers = () => {
               set={activater}
               currentPage={currentPage}
               postsPerPage={postsPerPage}
-              totalPosts={whitecrust ? samebank?.length : otherbank?.length}
+              // totalPosts={whitecrust ? samebank?.length : otherbank?.length}
+              totalPosts={totalPosts}
               paginate={paginate}
               previous={previous}
               next={next}

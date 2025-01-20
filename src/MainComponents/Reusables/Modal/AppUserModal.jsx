@@ -12,7 +12,7 @@ const AppUserModal = ({ setStep, step, setReload }) => {
   const [regbus, setRegbus] = useState({
     name: "",
     amountFrom: "",
-    day: "90Days",
+    day: "",
     amountTo: "",
     status: "active"
   });
@@ -97,6 +97,7 @@ const AppUserModal = ({ setStep, step, setReload }) => {
       ELITE: ""
     };
     const pa = paMapping[regbus?.day]?.[value] || "";
+    console.log(pa);
     const min = minie?.[value];
     const max = maxie?.[value];
     if (pa) {
@@ -174,6 +175,7 @@ const AppUserModal = ({ setStep, step, setReload }) => {
       ELITE: ""
     };
     const pa = paMapping[value]?.[regbus?.name] || "";
+    console.log(pa);
     const min = minie?.[regbus?.name];
     const max = maxie?.[regbus?.name];
     if (pa) {
@@ -191,19 +193,23 @@ const AppUserModal = ({ setStep, step, setReload }) => {
     });
   };
 
+  console.log(pa);
+
   const CreateInvestmentPackage = () => {
     const additionalFields = {};
+    console.log(pa);
+    const parsedPa = parseFloat(pa) || 0;
     if (regbus?.day === "90Days") {
-      additionalFields.day90rate = parseInt(pa, 10);
+      additionalFields.day90rate = parsedPa;
       additionalFields.day90penalty = 0.2;
     } else if (regbus?.day === "180Days") {
-      additionalFields.day180rate = parseInt(pa, 10);
+      additionalFields.day180rate = parsedPa;
       additionalFields.day180penalty = 0.2;
     } else if (regbus?.day === "270Days") {
-      additionalFields.day270rate = parseInt(pa, 10);
+      additionalFields.day270rate = parsedPa;
       additionalFields.day270penalty = 0.2;
     } else if (regbus?.day === "365Days") {
-      additionalFields.day365rate = parseInt(pa, 10);
+      additionalFields.day365rate = parsedPa;
       additionalFields.day365penalty = 0.2;
     }
     const content = {
@@ -212,6 +218,18 @@ const AppUserModal = ({ setStep, step, setReload }) => {
       amountTo: max,
       status: regbus?.status,
       ...additionalFields
+    };
+    console.log(content);
+    dispatch(CreateInvestment({ content }));
+  };
+
+  const CreateInvestments = () => {
+    const content = {
+      name: regbus?.name
+      // amountFrom: min,
+      // amountTo: max,
+      // status: regbus?.status,
+      // ...additionalFields
     };
     console.log(content);
     dispatch(CreateInvestment({ content }));
@@ -257,18 +275,18 @@ const AppUserModal = ({ setStep, step, setReload }) => {
           <ModalInputText
             label="Name of type"
             onChange={(e) => Change(e)}
-            name="firstname"
-            value={regbus?.firstname}
+            name="name"
+            value={regbus?.name}
             placeholder={`${`Enter type name`}`}
           />
-          <ModalBoxSelect
+          {/* <ModalBoxSelect
             label="Duration"
             onChange={(e) => Change(e)}
             name="firstname"
             value={"firstname"}
             //    earningPartnerId
             options={["90Days", "400Days"]}
-          />
+          /> */}
           {/* <ModalInputText
             label="First Name"
             onChange={(e) => Change(e)}
@@ -278,7 +296,10 @@ const AppUserModal = ({ setStep, step, setReload }) => {
           /> */}
         </div>
         <div className="flex flex-row justify-center items-center">
-          <CreateButton name={"Create"} />
+          <CreateButton
+            name={authenticatingcreateinvest ? "Creating..." : "Create"}
+            onClick={() => CreateInvestments()}
+          />
         </div>
       </AppModal>
       <AppModal

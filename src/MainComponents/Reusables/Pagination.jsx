@@ -6,10 +6,11 @@ const Pagination = ({
   paginate,
   set,
   currentPage,
-  support
+  support,
+  addition
 }) => {
   const [news, setNews] = useState(0);
-  const [old, setOld] = useState(3);
+  const [old, setOld] = useState(10);
 
   // Log values for debugging
   console.log("totalPosts:", totalPosts);
@@ -24,17 +25,17 @@ const Pagination = ({
 
   const backward = () => {
     if (news > 0) {
-      const newNews = Math.max(0, news - 3);
+      const newNews = Math.max(0, news - 10);
       setNews(newNews);
-      setOld(Math.min(newNews + 3, totalPages));
+      setOld(Math.min(newNews + 10, totalPages));
     }
   };
 
   const forward = () => {
     if (old < totalPages) {
-      const newNews = Math.min(totalPages - 3, news + 3);
+      const newNews = Math.min(totalPages - 10, news + 10);
       setNews(newNews);
-      setOld(Math.min(newNews + 3, totalPages));
+      setOld(Math.min(newNews + 10, totalPages));
     }
   };
 
@@ -51,7 +52,9 @@ const Pagination = ({
           <div className="flex items-center gap-2 text-gray-600">
             <span className="text-sm font-medium">Showing</span>
             <div className="flex items-center justify-start px-2 border border-gray-300 rounded h-7 w-11 text-center">
-              {Math.min((currentPage + 1) * 10, totalPosts)}
+              {(currentPage + 1) * validPostsPerPage > totalPosts
+                ? totalPosts
+                : (currentPage + 1) * validPostsPerPage}
             </div>
             <span className="text-sm font-medium">of</span>
             <span className="text-sm font-medium text-gray-700">

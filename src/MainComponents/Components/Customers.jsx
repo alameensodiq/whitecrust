@@ -41,6 +41,8 @@ const Customers = () => {
   const previous = custom?.data?.previous;
   const totalPosts = custom?.data?.count;
 
+  console.log(totalPosts);
+
   const paginate = (number) => {
     //  setSorted(tran)
     setCurrentPage(number);
@@ -171,6 +173,7 @@ const Customers = () => {
               paginate={paginate}
               previous={previous}
               next={next}
+              // addition={custom?.data?.results?.length}
             />
           </div>
         </div>
