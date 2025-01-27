@@ -15,7 +15,7 @@ export const Accounts = createAsyncThunk(
     try {
       // Construct the URL
       const url = new URL(
-        `${process.env.REACT_APP_BASE_URL}superadmin/account`
+        `${process.env.REACT_APP_BASE_URL}tier-upgrade/list/`
       );
       url.searchParams.append("search", searcher);
       url.searchParams.append("start_date", formattedDate);
