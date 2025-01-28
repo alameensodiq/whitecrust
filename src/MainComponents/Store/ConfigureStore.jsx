@@ -18,6 +18,12 @@ import { BillPaymentDashboardSlice } from "./Reducers/BillPaymentDashboard";
 import { TransferDashboardSlice } from "./Reducers/TransferDashboard";
 import { InvestmentDashboardSlice } from "./Reducers/InvestmentDashboard";
 import { CreateInvestmentSlice } from "./Reducers/CreateInvestment";
+import { ReportSlice } from "./Reducers/Report";
+import { ReportDashboardSlice } from "./Reducers/ReportDashboard";
+import { ReportActiveUsersSlice } from "./Reducers/ReportActiveuser";
+import { ReportTransfercustomersSlice } from "./Reducers/ReportTransferCustomer";
+import { ReportTransactionSlice } from "./Reducers/ReportTransaction";
+import { ReportTransfertransactionSlice } from "./Reducers/ReportTransfertransaction";
 
 export default configureStore({
   reducer: {
@@ -39,6 +45,12 @@ export default configureStore({
     billpaymentdashboards: BillPaymentDashboardSlice?.reducer,
     transferdashboards: TransferDashboardSlice?.reducer,
     investmentdashboards: InvestmentDashboardSlice?.reducer,
-    createinvest: CreateInvestmentSlice?.reducer
+    createinvest: CreateInvestmentSlice?.reducer,
+    report: ReportSlice?.reducer,
+    reportdashboard: ReportDashboardSlice?.reducer,
+    reportactiveusers: ReportActiveUsersSlice?.reducer,
+    reportcustomers: ReportTransfercustomersSlice?.reducer,
+    reporttransaction: ReportTransactionSlice?.reducer,
+    reporttransfertransaction: ReportTransfertransactionSlice?.reducer
   }
 });

@@ -5,10 +5,10 @@ function Donuts({ data }) {
   //  const series = data?.subscriptionPlan((item) => item.value)
   const series = data
     ? [
-        data?.total_data_amount,
-        data?.total_cable_amount,
-        data?.total_airtime_amount,
-        data?.total_electricity_amount
+        data?.total_airtimepayment,
+        data?.total_cablesubscription,
+        data?.total_datasubscription,
+        data?.total_electricitysubscription
       ]
     : [0, 0, 0, 0];
 

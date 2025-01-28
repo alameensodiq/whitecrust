@@ -41,11 +41,12 @@ const Pagination = ({
 
   return (
     <div
-      className={`bg-white flex ${
-        support
-          ? "flex-col items-center gap-2 p-2"
-          : "flex-row justify-between items-center gap-4 p-4"
-      }`}
+      // className={`bg-white flex ${
+      //   support
+      //     ? "flex-col items-center gap-2 p-2"
+      //     : "flex-row justify-between items-center gap-4 p-4"
+      // }`}
+      className="bg-white flex flex-col lg:flex-row justify-between items-center gap-4 p-4"
     >
       {totalPosts > 0 && (
         <>

@@ -5,12 +5,13 @@ function ReportDonuts({ data }) {
   //  const series = data?.subscriptionPlan((item) => item.value)
   const series = data
     ? [
-        data?.total_data_amount,
-        data?.total_cable_amount,
-        data?.total_airtime_amount,
-        data?.total_electricity_amount
+        data?.intra_transfer,
+        data?.inter_transfer
+
+        // data?.total_airtime_amount,
+        // data?.total_electricity_amount
       ]
-    : [0, 0, 0, 0];
+    : [0, 0];
 
   const options = {
     chart: {

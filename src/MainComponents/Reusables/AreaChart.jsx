@@ -2,18 +2,46 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 function AreaChart({ data }) {
-  const getDayOfWeek = (dateString) => {
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const date = new Date(dateString);
-    const dayOfWeek = daysOfWeek[date.getDay()];
-    return dayOfWeek;
-  };
+  // const getDayOfWeek = (dateString) => {
+  //   const daysOfWeek = [
+  //     "Sunday",
+  //     "Monday",
+  //     "Tuesday",
+  //     "Wednesday",
+  //     "Thursday",
+  //     "Friday",
+  //     "Saturday"
+  //   ];
+  //   const date = new Date(dateString);
+  //   const dayOfWeek = daysOfWeek[date.getDay()];
+  //   return dayOfWeek;
+  // };
 
+  const daysOrder = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+
+  const completeData = daysOrder.map((day) => {
+    const existingDay = data?.find((item) => item.day === day);
+    return existingDay || { day, count: 0 };
+  });
+
+  // Sort the data according to daysOrder (though it's already aligned here)
+  const sortedData = completeData.sort(
+    (a, b) => daysOrder.indexOf(a.day) - daysOrder.indexOf(b.day)
+  );
+
+  // Prepare the series data
   const series = [
     {
-      name: "series1",
-      data: [20, 30, 50, 89, 88, 77, 44]
-      //   data: data?.productivityAnalysis?.map((item) => item?.productive)
+      name: "Activity Count",
+      data: sortedData.map((item) => item.count)
     }
   ];
 
@@ -27,10 +55,11 @@ function AreaChart({ data }) {
       },
       responsive: [
         {
-          breakpoint: 768, // Adjust for smaller screens
+          breakpoint: 480, // Adjust for smaller screens
           options: {
             chart: {
-              width: "100%" // Let chart occupy the entire container width
+              width: 240
+              // height: 220
             }
           }
         }
@@ -52,7 +81,7 @@ function AreaChart({ data }) {
     yaxis: {
       tickAmount: 5,
       min: 0,
-      max: 100
+      max: 1000
     },
     tooltip: {
       x: {
@@ -68,8 +97,8 @@ function AreaChart({ data }) {
         options={options}
         series={series}
         type="area"
-        height={270}
-        width={460}
+        // height={250}
+        // width={460}
       />
     </div>
   );
