@@ -879,7 +879,7 @@ const Sidebar = () => {
       <hr className="" />
       <div
         onClick={() => LogOutAuthentication()}
-        className="px-[20px] flex flex-row justify-between text-[14px]  py-[15px] cursor-pointer"
+        className="px-[20px] flex flex-col lg:flex-row md:flex-row justify-between text-[14px]  py-[15px] cursor-pointer"
       >
         <div className="real">
           <span className="logbut">Log Out</span>

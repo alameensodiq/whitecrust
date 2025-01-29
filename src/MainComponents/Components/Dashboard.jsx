@@ -209,7 +209,9 @@ const Dashboard = () => {
                     <span className="text-second-card-text">Investments</span>
                   </div>
                   <MixedLineBarChart
-                    data={investmentdashboards?.data}
+                    data={
+                      investmentdashboards ? investmentdashboards?.data : []
+                    }
                     background={"#c7cbed"}
                     color={"#344BFD"}
                   />
@@ -237,7 +239,11 @@ const Dashboard = () => {
                     <span className="text-second-card-text">Transfers</span>
                   </div>
                   <MixedLineBarChart
-                    data={transactiondashboards?.data}
+                    data={
+                      transactiondashboards?.data
+                        ? transactiondashboards?.data
+                        : []
+                    }
                     color={"#05B2FA"}
                     background={"#c3e2f0"}
                   />
@@ -265,6 +271,7 @@ const Dashboard = () => {
                     <span className="text-second-card-text">Loans</span>
                   </div>
                   <MixedLineBarChart
+                    data={[]}
                     color={"rgba(255, 160, 81, 1)"}
                     background={"rgba(255, 160, 81, 0.2)"}
                   />
@@ -314,7 +321,14 @@ const Dashboard = () => {
                     />
                     {/* </div> */}
                   </div>
-                  <Donuts data={billpaymentdashboards?.data} />
+                  <Donuts
+                    data={
+                      billpaymentdashboards?.data &&
+                      typeof billpaymentdashboards?.data === "object"
+                        ? billpaymentdashboards.data
+                        : {}
+                    }
+                  />
                   <div className="flex flex-col gap-3 px-[15px]">
                     <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-10 md:gap-20 sm:gap-6">
                       <div className="flex flex-row gap-1 items-center text-[12px]">

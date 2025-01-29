@@ -558,7 +558,9 @@ const Report = () => {
                         >
                           Downloads
                         </div>
-                        <span className="text-black text-[18px]">600</span>
+                        <span className="text-black text-[18px]">
+                          {reportcustomers?.data?.mobile_users}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center gap-1">
                         <div
@@ -572,7 +574,9 @@ const Report = () => {
                         >
                           Sign up
                         </div>
-                        <span className="text-black text-[18px]">600</span>
+                        <span className="text-black text-[18px]">
+                          {reportcustomers?.data?.mobile_users}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center gap-1">
                         <div
@@ -586,7 +590,9 @@ const Report = () => {
                         >
                           Usage
                         </div>
-                        <span className="text-black text-[18px]">60%</span>
+                        <span className="text-black text-[18px]">
+                          {reportcustomers?.data?.mobile_percentage}%
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -624,7 +630,9 @@ const Report = () => {
                         >
                           Downloads
                         </div>
-                        <span className="text-black text-[18px]">600</span>
+                        <span className="text-black text-[18px]">
+                          {reportcustomers?.data?.web_users}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center gap-1">
                         <div
@@ -638,7 +646,10 @@ const Report = () => {
                         >
                           Sign up
                         </div>
-                        <span className="text-black text-[18px]">600</span>
+                        <span className="text-black text-[18px]">
+                          {" "}
+                          {reportcustomers?.data?.web_users}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center gap-1">
                         <div
@@ -652,7 +663,10 @@ const Report = () => {
                         >
                           Usage
                         </div>
-                        <span className="text-black text-[18px]">60%</span>
+                        <span className="text-black text-[18px]">
+                          {" "}
+                          {reportcustomers?.data?.web_percentage}%
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -20,7 +20,7 @@ function MixedLineBarChart({ color, background, data }) {
             data?.find((item) => item?.month === "November")?.amount || 0,
             data?.find((item) => item?.month === "December")?.amount || 0
           ]
-        : Array(12).fill(0)
+        : []
     }
     // {
     //   // name: "Social Media",

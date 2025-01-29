@@ -20,7 +20,7 @@ export const ReportTransfercustomers = createAsyncThunk(
     try {
       // Construct the URL
       const url = new URL(
-        `${process.env.REACT_APP_BASE_URL}superadmin/report?filter=customers&month=${month}&year=${year}`
+        `${process.env.REACT_APP_BASE_URL}superadmin/report?filter=user_summary&month=${month}&year=${year}`
       );
       //   url.searchParams.append("search", searcher);
       //   url.searchParams.append("start_date", formattedDate);

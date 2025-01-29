@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-function Donuts({ data }) {
+function Donuts({ data = {} }) {
   //  const series = data?.subscriptionPlan((item) => item.value)
-  const series = data
-    ? [
-        data?.total_airtimepayment,
-        data?.total_cablesubscription,
-        data?.total_datasubscription,
-        data?.total_electricitysubscription
-      ]
-    : [0, 0, 0, 0];
+  const series = [
+    data?.total_airtime_amount || 0,
+    data?.total_cable_amount || 0,
+    data?.total_data_amount || 0,
+    data?.total_electricity_amount || 0
+  ];
 
   const options = {
     chart: {
