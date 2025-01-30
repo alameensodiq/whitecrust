@@ -37,6 +37,7 @@ const InvestmentPackages = () => {
         Investment({ endDate, startDate, currentPage, search, download })
       );
       setStep(0);
+      setReload(false);
     }
 
     // } else {

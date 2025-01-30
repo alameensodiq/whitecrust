@@ -24,6 +24,8 @@ import { ReportActiveUsersSlice } from "./Reducers/ReportActiveuser";
 import { ReportTransfercustomersSlice } from "./Reducers/ReportTransferCustomer";
 import { ReportTransactionSlice } from "./Reducers/ReportTransaction";
 import { ReportTransfertransactionSlice } from "./Reducers/ReportTransfertransaction";
+import { AccountDetailsSlice } from "./Reducers/AccountDetails";
+import { AccountApproveSlice } from "./Reducers/AccountApprove";
 
 export default configureStore({
   reducer: {
@@ -51,6 +53,8 @@ export default configureStore({
     reportactiveusers: ReportActiveUsersSlice?.reducer,
     reportcustomers: ReportTransfercustomersSlice?.reducer,
     reporttransaction: ReportTransactionSlice?.reducer,
-    reporttransfertransaction: ReportTransfertransactionSlice?.reducer
+    reporttransfertransaction: ReportTransfertransactionSlice?.reducer,
+    accountdetails: AccountDetailsSlice?.reducer,
+    accountapprove: AccountApproveSlice?.reducer
   }
 });

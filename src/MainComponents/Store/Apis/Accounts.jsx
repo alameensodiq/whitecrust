@@ -39,11 +39,17 @@ export const Accounts = createAsyncThunk(
       });
 
       const data = await response.json();
-      if (!data?.status) {
-        toast.error(data.message);
-      }
+      // if (!data?.status) {
+      //   toast.error(data.message);
+      // }
       return data;
     } catch (e) {
+      const status = e.response?.status;
+      const data = e.response?.data;
+
+      if (status && status !== 200) {
+        toast.error(data?.message || "An error occurred");
+      }
       return thunkAPI.rejectWithValue({
         error: "Failed to establish connection."
       });

@@ -6,9 +6,13 @@ import CreateButton from "../CreateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { CreateInvestment } from "../../Store/Apis/CreateInvestment";
 import { ReactComponent as Success } from "../../../assets/successful.svg";
+import { ReactComponent as Approve } from "../../../assets/Approver.svg";
+import { ReactComponent as Reject } from "../../../assets/Reject.svg";
+import { AccountApprove } from "../../Store/Apis/AccountApprove";
 
-const AppUserModal = ({ setStep, step, setReload }) => {
+const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   const dispatch = useDispatch();
+  const [reject, setReject] = useState("");
   const [regbus, setRegbus] = useState({
     name: "",
     amountFrom: "",
@@ -246,8 +250,22 @@ const AppUserModal = ({ setStep, step, setReload }) => {
     }
   }, [createinvest?.status, authenticatingcreateinvest]);
 
+  const { accountapprove, authenticatingaccountapprove } = useSelector(
+    (state) => state.accountapprove
+  );
+  console.log(accountapprove);
+
+  useEffect(() => {
+    if (accountapprove?.status && !authenticatingaccountapprove) {
+      setStep(6);
+    }
+  }, [accountapprove?.status, accountapprove]);
+
   const handleCloseModal4 = () => {
     setStep(0);
+    if (ids) {
+      setIds(null);
+    }
     setRegbus({
       name: "",
       amountFrom: "",
@@ -464,6 +482,156 @@ const AppUserModal = ({ setStep, step, setReload }) => {
             }}
           >
             <CreateButton name="Close" onClick={() => handleCloseModal4()} />
+          </div>
+        </div>
+      </AppModal>
+      <AppModal
+        step={4}
+        currentStep={step}
+        closeModal={handleCloseModal4}
+        // updateUserListData(update);
+        // window.location.reload()
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Approve />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              color: "#263BD4"
+            }}
+          >
+            Approved
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "5px",
+              fontSize: "12px",
+              color: "#263BD4"
+            }}
+          >
+            <span>
+              You have successfully approved this user’s ID documents{" "}
+            </span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px"
+            }}
+          >
+            <CreateButton name="Done" onClick={() => handleCloseModal4()} />
+          </div>
+        </div>
+      </AppModal>
+      <AppModal
+        step={5}
+        currentStep={step}
+        closeModal={handleCloseModal4}
+        // updateUserListData(update);
+        // window.location.reload()
+
+        heading="Rejection reason"
+      >
+        <div className="flex flex-row justify-between pl-10 w-[100%] pb-4">
+          <ModalInputText
+            label="Reason for Rejection"
+            onChange={(e) => setReject(e.target.value)}
+            name="name"
+            value={reject}
+            placeholder={`${`Reason`}`}
+          />
+          {/* <ModalBoxSelect
+            label="Duration"
+            onChange={(e) => Change(e)}
+            name="firstname"
+            value={"firstname"}
+            //    earningPartnerId
+            options={["90Days", "400Days"]}
+          /> */}
+          {/* <ModalInputText
+            label="First Name"
+            onChange={(e) => Change(e)}
+            name="firstname"
+            value={regbus?.firstname}
+            placeholder={`${`Enter Business Rep's First Name`}`}
+          /> */}
+        </div>
+        <div className="flex flex-row justify-center items-center">
+          <CreateButton
+            name={authenticatingaccountapprove ? "Rejecting..." : "Done"}
+            onClick={() => {
+              dispatch(AccountApprove({ id: ids, status: "declined", reject }));
+            }}
+          />
+        </div>
+      </AppModal>
+      <AppModal
+        step={6}
+        currentStep={step}
+        closeModal={handleCloseModal4}
+        // updateUserListData(update);
+        // window.location.reload()
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Reject />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              color: "#263BD4"
+            }}
+          >
+            Rejected
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "5px",
+              fontSize: "12px",
+              color: "#263BD4"
+            }}
+          >
+            <span>You have successfully rejected this user’s ID documents</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px"
+            }}
+          >
+            <CreateButton name="Done" onClick={() => handleCloseModal4()} />
           </div>
         </div>
       </AppModal>

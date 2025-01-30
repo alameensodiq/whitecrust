@@ -17,6 +17,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Account from "./MainComponents/Components/Account";
 import InvestmentTypes from "./MainComponents/Components/InvestmentTypes";
 import InvestmentPackages from "./MainComponents/Components/InvestmentPackages";
+import AccountDetail from "./MainComponents/Components/AccountDetails";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/customers" element={<Customers />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/account/:id" element={<AccountDetail />} />
         <Route path="/customers/:id" element={<CustomerInfo />} />
         <Route path="/investments" element={<Investments />} />
         <Route path="/investmentstypes" element={<InvestmentTypes />} />

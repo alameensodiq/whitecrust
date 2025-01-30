@@ -369,34 +369,41 @@ const Tables = ({
                     {index + 1}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.accountNo ? item?.accountNo : "N/A"}
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>
-                    {item?.profile?.otherName
-                      ? item?.profile?.otherName
+                    {item?.user?.useraccounts[0]?.accountNo
+                      ? item?.user?.useraccounts[0]?.accountNo
                       : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.email ? item?.email : "N/A"}
+                    {item?.user?.userprofile?.otherName
+                      ? item?.user?.userprofile?.otherName
+                      : "N/A"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.user?.email ? item?.user?.email : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     {" "}
-                    {item?.profile?.phoneNumber
-                      ? item?.profile?.phoneNumber
+                    {item?.user?.userprofile?.phoneNumber
+                      ? item?.user?.userprofile?.phoneNumber
                       : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.profile?.dob ? item?.profile?.dob : "N/A"}
+                    {item?.user?.userprofile?.dob
+                      ? item?.user?.userprofile?.dob
+                      : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    <Moment format="DD/MM/YY">
-                      {item?.profile?.dateCreated}
-                    </Moment>
+                    <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    <span className="text-[12px] font-semibold text-button-bg">
+                    <div
+                      onClick={() => {
+                        navigate(`../account/${item?.id}`);
+                      }}
+                      className="text-[12px] font-semibold text-button-bg"
+                    >
                       View
-                    </span>
+                    </div>
                     {/* <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
                     Successful
                   </button> */}
