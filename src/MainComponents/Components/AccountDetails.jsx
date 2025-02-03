@@ -285,6 +285,34 @@ const AccountDetail = () => {
                     }
                   />
                 </div>
+                <div className="flex flex-col gap-2 lg:flex-row md:flex-row justify-between items-start w-[100%] lg:w-[60%] md:w-[60%]">
+                  <div className="flex flex-col">
+                    <span className="text-[#344054] text-[12px] lg:text-[14px] md:text-[14px]">
+                      Photo ID (Front page)
+                    </span>
+                    <span className="text-[#667085] text-[12px] lg:text-[14px] md:text-[14px]">
+                      This is the front page of the ID uploaded
+                    </span>
+                  </div>
+                  <img
+                    alt="docs"
+                    className="w-[50%] lg:w-[30%] md:w-[30%] h-[70px] rounded-[8px]"
+                    src={`${
+                      process.env.REACT_APP_BASE_URL
+                    }${accountdetails.utility.replace(/^\/+/, "")}`}
+                  />
+                  <Doc
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      window.open(
+                        `${
+                          process.env.REACT_APP_BASE_URL
+                        }${accountdetails.validId.replace(/^\/+/, "")}`,
+                        "_blank"
+                      )
+                    }
+                  />
+                </div>
               </>
             )}
           </div>
