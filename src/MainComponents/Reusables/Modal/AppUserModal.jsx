@@ -13,6 +13,7 @@ import { AccountApprove } from "../../Store/Apis/AccountApprove";
 const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   const dispatch = useDispatch();
   const [reject, setReject] = useState("");
+  const [rejectionreasion, setrejectionreasion] = useState(false);
   const [regbus, setRegbus] = useState({
     name: "",
     amountFrom: "",
@@ -256,10 +257,15 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   console.log(accountapprove);
 
   useEffect(() => {
-    if (accountapprove?.status && !authenticatingaccountapprove) {
+    if (
+      accountapprove?.message &&
+      !authenticatingaccountapprove &&
+      rejectionreasion
+    ) {
       setStep(6);
+      setReject("");
     }
-  }, [accountapprove?.status, accountapprove]);
+  }, [accountapprove?.message, accountapprove, rejectionreasion]);
 
   const handleCloseModal4 = () => {
     setStep(0);
@@ -273,6 +279,7 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
       amountTo: "",
       status: "active"
     });
+    setrejectionreasion(false);
     setmin("");
     setmax("");
     setpa("");
@@ -578,6 +585,8 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
             name={authenticatingaccountapprove ? "Rejecting..." : "Done"}
             onClick={() => {
               dispatch(AccountApprove({ id: ids, status: "declined", reject }));
+              setrejectionreasion(true);
+              console.log(ids);
             }}
           />
         </div>

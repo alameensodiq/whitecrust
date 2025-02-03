@@ -48,10 +48,14 @@ const AccountDetail = () => {
   console.log(accountdetails);
 
   useEffect(() => {
-    if (accountapprove?.status && !authenticatingaccountapprove && approval) {
+    if (
+      accountapprove?.message === "Tier upgrade approved successfully" &&
+      !authenticatingaccountapprove &&
+      approval
+    ) {
       setStep(4);
     }
-  }, [accountapprove?.status, authenticatingaccountapprove, approval]);
+  }, [accountapprove?.message, authenticatingaccountapprove, approval]);
 
   const White = () => {
     setWhitecrust(true);
@@ -127,7 +131,7 @@ const AccountDetail = () => {
                     <span className="text-[#263BD4] text-[12px]">Approve</span>
                   </div>
                   <div
-                    className="flex flex-row items-center gap-1"
+                    className="flex flex-row items-center gap-1 cursor-pointer"
                     onClick={() => setStep(5)}
                   >
                     <Reject />

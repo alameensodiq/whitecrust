@@ -6,18 +6,17 @@ export const AccountApprove = createAsyncThunk(
   "accountapprove",
   async ({ id, status, reject }, thunkAPI) => {
     const accessToken = sessionStorage.getItem("token");
+    console.log(status);
 
     try {
       let requestBody = {
-        data: {
-          status
-        },
-        requestType: "inbound"
+        status
+        // requestType: "inbound"
       };
 
       // Only include rejection_reason if reject is defined
       if (reject) {
-        requestBody.data.rejection_reason = reject;
+        requestBody.rejection_reason = reject;
       }
       const response = await fetch(
         `${process.env.REACT_APP_BASE_URL}tier-upgrade/${id}/review/`,
