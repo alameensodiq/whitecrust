@@ -427,7 +427,7 @@ const Report = () => {
                     </div> */}
                   </div>
                 </div>
-                <Tables report data={[]} />
+                <Tables report data={reporttransaction?.data?.results} />
                 <Pagination
                   set={activater}
                   currentPage={currentPage}

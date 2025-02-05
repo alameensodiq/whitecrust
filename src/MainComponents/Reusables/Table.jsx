@@ -1487,6 +1487,7 @@ const Tables = ({
                 <StyledTableCell style={{ width: "20%" }}>
                   STATUS
                 </StyledTableCell>
+                <StyledTableCell style={{ width: "20%" }}></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -1502,16 +1503,14 @@ const Tables = ({
                     {"N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {"N/A"}
+                    {item?.user?.firstName}
+                    {item?.user?.lastName}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {item?.duration ? item?.duration : "0"} days
+                    {item?.user?.customerID ? item?.user?.customerID : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {/* <Moment format="DD/MM/YYY">
-                    {item?.investmentInfo?.dateCreated}
-                  </Moment> */}
-                    ----
+                    {item?.amount}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
                     {item?.status === "running" ? (
@@ -1539,14 +1538,14 @@ const Tables = ({
                         ></span>{" "}
                         Pending
                       </button>
-                    ) : item?.status === "Success" ? (
+                    ) : item?.status === "completed" ? (
                       <button
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "80%",
+                          width: "50%",
                           height: "20px",
                           background: "#ECFDF3",
                           color: "#027A48",
@@ -1571,7 +1570,7 @@ const Tables = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "80%",
+                          width: "50%",
                           height: "20px",
                           background: "#FFCCCC",
                           color: "#FF0000",
@@ -1587,7 +1586,7 @@ const Tables = ({
                             borderRadius: "50%"
                           }}
                         ></span>{" "}
-                        Successful
+                        Failed
                       </button>
                     )}
                   </StyledTableCell>
