@@ -60,7 +60,7 @@ const Report = () => {
     dispatch(ReportDashboard({ startDatedashboard }));
     dispatch(ReportActiveUsers({ startDateactiveusers }));
     dispatch(ReportTransfercustomers({ startDatetransfercustomers }));
-    dispatch(ReportTransaction({ startDatetransaction }));
+    dispatch(ReportTransaction({ startDatetransaction, currentPage }));
     dispatch(ReportTransfertransaction({ startDatetransfertransaction }));
   }, [
     startDate,
@@ -68,7 +68,8 @@ const Report = () => {
     startDatetransaction,
     startDatetransfercustomers,
     startDatetransfertransaction,
-    startDateactiveusers
+    startDateactiveusers,
+    currentPage
   ]);
 
   const { report, authenticatingreport } = useSelector((state) => state.report);
@@ -106,7 +107,7 @@ const Report = () => {
 
   const next = true;
   const previous = true;
-  const totalPosts = 20;
+  const totalPosts = reporttransaction?.data?.count;
 
   const paginate = (number) => {
     //  setSorted(tran)
@@ -431,7 +432,7 @@ const Report = () => {
                 <Pagination
                   set={activater}
                   currentPage={currentPage}
-                  postsPerPage={postsPerPage}
+                  postsPerPage={reporttransaction?.data?.results?.length}
                   totalPosts={totalPosts}
                   paginate={paginate}
                   previous={previous}

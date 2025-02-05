@@ -4,7 +4,7 @@ import { userData } from "../../../userData";
 
 export const ReportTransaction = createAsyncThunk(
   "reporttransaction",
-  async ({ startDatetransaction }, thunkAPI) => {
+  async ({ startDatetransaction, currentPage }, thunkAPI) => {
     // const dateObj = new Date(startDate);
     // const formattedDate = dateObj.toISOString().slice(0, 10);
     // const dateObjs = new Date(endDate);
@@ -20,7 +20,7 @@ export const ReportTransaction = createAsyncThunk(
     try {
       // Construct the URL
       const url = new URL(
-        `${process.env.REACT_APP_BASE_URL}superadmin/report?filter=all_transactions&month=${month}&year=${year}`
+        `${process.env.REACT_APP_BASE_URL}superadmin/report?filter=all_transactions&month=${month}&year=${year}&page=${currentPage}`
       );
       //   url.searchParams.append("search", searcher);
       //   url.searchParams.append("start_date", formattedDate);
