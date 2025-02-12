@@ -168,7 +168,11 @@ const Customers = () => {
                   Download Report <Download />
                 </button>
               </div>
-              <Tables customers data={custom?.data?.results} />
+              <Tables
+                currentPage={currentPage}
+                customers
+                data={custom?.data?.results}
+              />
               <Pagination
                 set={activater}
                 currentPage={currentPage}

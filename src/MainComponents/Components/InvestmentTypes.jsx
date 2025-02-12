@@ -33,6 +33,7 @@ const InvestmentTypes = () => {
   useEffect(() => {
     // if(userData !== undefined && userData !== null){
     dispatch(Investment({ endDate, startDate, currentPage, search, download }));
+    setStep(0);
     if (reload) {
       dispatch(
         Investment({ endDate, startDate, currentPage, search, download })
@@ -43,7 +44,7 @@ const InvestmentTypes = () => {
     // } else {
     //   navigate("/");
     // }
-  }, [endDate, startDate, currentPage, search, download, reload, step]);
+  }, [endDate, startDate, currentPage, search, download, reload]);
 
   const { investment, authenticatinginvestment } = useSelector(
     (state) => state.investment
@@ -192,7 +193,11 @@ const InvestmentTypes = () => {
                 <Filter />
                 <span className="text-route-noncolor text-[12px]">Filters</span>
               </div>
-              <Tables investmentstypes data={investment?.data?.results} />
+              <Tables
+                currentPage={currentPage}
+                investmentstypes
+                data={investment?.data?.results}
+              />
               <Pagination
                 set={activater}
                 currentPage={currentPage}

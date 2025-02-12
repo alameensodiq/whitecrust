@@ -53,9 +53,9 @@ const Pagination = ({
           <div className="flex items-center gap-2 text-gray-600">
             <span className="text-sm font-medium">Showing</span>
             <div className="flex items-center justify-start px-2 border border-gray-300 rounded h-7 w-11 text-center">
-              {(currentPage + 1) * validPostsPerPage > totalPosts
+              {currentPage * validPostsPerPage > totalPosts
                 ? totalPosts
-                : (currentPage + 1) * validPostsPerPage}
+                : currentPage * validPostsPerPage}
             </div>
             <span className="text-sm font-medium">of</span>
             <span className="text-sm font-medium text-gray-700">

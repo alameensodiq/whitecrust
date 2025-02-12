@@ -10,7 +10,14 @@ import { ReactComponent as Approve } from "../../../assets/Approver.svg";
 import { ReactComponent as Reject } from "../../../assets/Reject.svg";
 import { AccountApprove } from "../../Store/Apis/AccountApprove";
 
-const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
+const AppUserModal = ({
+  setStep,
+  step,
+  setReload,
+  ids,
+  setIds,
+  investmentlists = []
+}) => {
   const dispatch = useDispatch();
   const [reject, setReject] = useState("");
   const [rejectionreasion, setrejectionreasion] = useState(false);
@@ -25,6 +32,7 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   const [min, setmin] = useState("");
   const [max, setmax] = useState("");
   const [pa, setpa] = useState("");
+  const [penalty, setpenalty] = useState("");
 
   //   {
   //     "name": "string",
@@ -41,190 +49,260 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   //     "status": "active"
   //   }
 
+  // const Change = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(value);
+  //   const paMapping = {
+  //     "90Days": {
+  //       Basic: "0.12",
+  //       ESSENTIALS: "0.14",
+  //       ADVANCED: "0.15",
+  //       PREMIUM: "0.16",
+  //       EXECUTIVE: "0.17",
+  //       PRESTIGE: "0.18",
+  //       ELITE: "0.19"
+  //     },
+  //     "180Days": {
+  //       Basic: "0.13",
+  //       ESSENTIALS: "0.15",
+  //       ADVANCED: "0.16",
+  //       PREMIUM: "0.17",
+  //       EXECUTIVE: "0.18",
+  //       PRESTIGE: "0.19",
+  //       ELITE: "0.20"
+  //     },
+  //     "270Days": {
+  //       Basic: "0.14",
+  //       ESSENTIALS: "0.16",
+  //       ADVANCED: "0.17",
+  //       PREMIUM: "0.18",
+  //       EXECUTIVE: "0.19",
+  //       PRESTIGE: "0.20",
+  //       ELITE: "0.21"
+  //     },
+  //     "365Days": {
+  //       Basic: "0.15",
+  //       ESSENTIALS: "0.17",
+  //       ADVANCED: "0.18",
+  //       PREMIUM: "0.19",
+  //       EXECUTIVE: "0.20",
+  //       PRESTIGE: "0.21",
+  //       ELITE: "NEGOTIABLE"
+  //     }
+  //   };
+
+  //   const minie = {
+  //     Basic: "5000",
+  //     ESSENTIALS: "1000000",
+  //     ADVANCED: "5000000",
+  //     PREMIUM: "10000000",
+  //     EXECUTIVE: "30000000",
+  //     PRESTIGE: "50000000",
+  //     ELITE: "100000000"
+  //   };
+  //   const maxie = {
+  //     Basic: "999999",
+  //     ESSENTIALS: "4900000",
+  //     ADVANCED: "9900000",
+  //     PREMIUM: "29900000",
+  //     EXECUTIVE: "49900000",
+  //     PRESTIGE: "99000000",
+  //     ELITE: ""
+  //   };
+  //   const pa = paMapping[regbus?.day]?.[value] || "";
+  //   console.log(pa);
+  //   const min = minie?.[value];
+  //   const max = maxie?.[value];
+  //   if (pa) {
+  //     setpa(pa);
+  //   }
+  //   if (min) {
+  //     setmin(min);
+  //   }
+  //   if (max) {
+  //     setmax(max);
+  //   }
+  //   setRegbus({
+  //     ...regbus,
+  //     [name]: value
+  //   });
+  // };
+
+  // const ChangeDuration = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(value);
+  //   const paMapping = {
+  //     "90Days": {
+  //       Basic: "0.12",
+  //       ESSENTIALS: "0.14",
+  //       ADVANCED: "0.15",
+  //       PREMIUM: "0.16",
+  //       EXECUTIVE: "0.17",
+  //       PRESTIGE: "0.18",
+  //       ELITE: "0.19"
+  //     },
+  //     "180Days": {
+  //       Basic: "0.13",
+  //       ESSENTIALS: "0.15",
+  //       ADVANCED: "0.16",
+  //       PREMIUM: "0.17",
+  //       EXECUTIVE: "0.18",
+  //       PRESTIGE: "0.19",
+  //       ELITE: "0.20"
+  //     },
+  //     "270Days": {
+  //       Basic: "0.14",
+  //       ESSENTIALS: "0.16",
+  //       ADVANCED: "0.17",
+  //       PREMIUM: "0.18",
+  //       EXECUTIVE: "0.19",
+  //       PRESTIGE: "0.20",
+  //       ELITE: "0.21"
+  //     },
+  //     "365Days": {
+  //       Basic: "0.15",
+  //       ESSENTIALS: "0.17",
+  //       ADVANCED: "0.18",
+  //       PREMIUM: "0.19",
+  //       EXECUTIVE: "0.20",
+  //       PRESTIGE: "0.21",
+  //       ELITE: "NEGOTIABLE"
+  //     }
+  //   };
+  //   const minie = {
+  //     Basic: "5000",
+  //     ESSENTIALS: "1000000",
+  //     ADVANCED: "5000000",
+  //     PREMIUM: "10000000",
+  //     EXECUTIVE: "30000000",
+  //     PRESTIGE: "50000000",
+  //     ELITE: "100000000"
+  //   };
+  //   const maxie = {
+  //     Basic: "999999",
+  //     ESSENTIALS: "4900000",
+  //     ADVANCED: "9900000",
+  //     PREMIUM: "29900000",
+  //     EXECUTIVE: "49900000",
+  //     PRESTIGE: "99000000",
+  //     ELITE: ""
+  //   };
+  //   const pa = paMapping[value]?.[regbus?.name] || "";
+  //   console.log(pa);
+  //   const min = minie?.[regbus?.name];
+  //   const max = maxie?.[regbus?.name];
+  //   if (pa) {
+  //     setpa(pa);
+  //   }
+  //   if (min) {
+  //     setmin(min);
+  //   }
+  //   if (max) {
+  //     setmax(max);
+  //   }
+  //   setRegbus({
+  //     ...regbus,
+  //     [name]: value
+  //   });
+  // };
+
   const Change = (e) => {
     const { name, value } = e.target;
     console.log(value);
-    const paMapping = {
-      "90Days": {
-        Basic: "0.12",
-        ESSENTIALS: "0.14",
-        ADVANCED: "0.15",
-        PREMIUM: "0.16",
-        EXECUTIVE: "0.17",
-        PRESTIGE: "0.18",
-        ELITE: "0.19"
-      },
-      "180Days": {
-        Basic: "0.13",
-        ESSENTIALS: "0.15",
-        ADVANCED: "0.16",
-        PREMIUM: "0.17",
-        EXECUTIVE: "0.18",
-        PRESTIGE: "0.19",
-        ELITE: "0.20"
-      },
-      "270Days": {
-        Basic: "0.14",
-        ESSENTIALS: "0.16",
-        ADVANCED: "0.17",
-        PREMIUM: "0.18",
-        EXECUTIVE: "0.19",
-        PRESTIGE: "0.20",
-        ELITE: "0.21"
-      },
-      "365Days": {
-        Basic: "0.15",
-        ESSENTIALS: "0.17",
-        ADVANCED: "0.18",
-        PREMIUM: "0.19",
-        EXECUTIVE: "0.20",
-        PRESTIGE: "0.21",
-        ELITE: "NEGOTIABLE"
-      }
-    };
 
-    const minie = {
-      Basic: "5000",
-      ESSENTIALS: "1000000",
-      ADVANCED: "5000000",
-      PREMIUM: "10000000",
-      EXECUTIVE: "30000000",
-      PRESTIGE: "50000000",
-      ELITE: "100000000"
-    };
-    const maxie = {
-      Basic: "999999",
-      ESSENTIALS: "4900000",
-      ADVANCED: "9900000",
-      PREMIUM: "29900000",
-      EXECUTIVE: "49900000",
-      PRESTIGE: "99000000",
-      ELITE: ""
-    };
-    const pa = paMapping[regbus?.day]?.[value] || "";
-    console.log(pa);
-    const min = minie?.[value];
-    const max = maxie?.[value];
-    if (pa) {
-      setpa(pa);
+    const selectedInvestment = investmentlists.find(
+      (inv) => inv.name === value
+    );
+    if (!selectedInvestment) return;
+
+    setRegbus((prev) => ({ ...prev, [name]: value }));
+
+    // Update min and max based on investment type
+    setmin(selectedInvestment.amountFrom);
+    setmax(selectedInvestment.amountTo);
+
+    // If a duration is already selected, update min, max, and pa
+    if (regbus.day) {
+      setmin(
+        selectedInvestment[`day${regbus.day.replace("Days", "")}amountFrom`] ||
+          selectedInvestment.amountFrom
+      );
+      setmax(
+        selectedInvestment[`day${regbus.day.replace("Days", "")}amountTo`] ||
+          selectedInvestment.amountTo
+      );
+      setpa(
+        selectedInvestment[`day${regbus.day.replace("Days", "")}rate`] || ""
+      );
+      setpenalty(
+        selectedInvestment[`day${regbus.day.replace("Days", "")}rate`] || ""
+      );
     }
-    if (min) {
-      setmin(min);
-    }
-    if (max) {
-      setmax(max);
-    }
-    setRegbus({
-      ...regbus,
-      [name]: value
-    });
   };
 
   const ChangeDuration = (e) => {
     const { name, value } = e.target;
     console.log(value);
-    const paMapping = {
-      "90Days": {
-        Basic: "0.12",
-        ESSENTIALS: "0.14",
-        ADVANCED: "0.15",
-        PREMIUM: "0.16",
-        EXECUTIVE: "0.17",
-        PRESTIGE: "0.18",
-        ELITE: "0.19"
-      },
-      "180Days": {
-        Basic: "0.13",
-        ESSENTIALS: "0.15",
-        ADVANCED: "0.16",
-        PREMIUM: "0.17",
-        EXECUTIVE: "0.18",
-        PRESTIGE: "0.19",
-        ELITE: "0.20"
-      },
-      "270Days": {
-        Basic: "0.14",
-        ESSENTIALS: "0.16",
-        ADVANCED: "0.17",
-        PREMIUM: "0.18",
-        EXECUTIVE: "0.19",
-        PRESTIGE: "0.20",
-        ELITE: "0.21"
-      },
-      "365Days": {
-        Basic: "0.15",
-        ESSENTIALS: "0.17",
-        ADVANCED: "0.18",
-        PREMIUM: "0.19",
-        EXECUTIVE: "0.20",
-        PRESTIGE: "0.21",
-        ELITE: "NEGOTIABLE"
-      }
-    };
-    const minie = {
-      Basic: "5000",
-      ESSENTIALS: "1000000",
-      ADVANCED: "5000000",
-      PREMIUM: "10000000",
-      EXECUTIVE: "30000000",
-      PRESTIGE: "50000000",
-      ELITE: "100000000"
-    };
-    const maxie = {
-      Basic: "999999",
-      ESSENTIALS: "4900000",
-      ADVANCED: "9900000",
-      PREMIUM: "29900000",
-      EXECUTIVE: "49900000",
-      PRESTIGE: "99000000",
-      ELITE: ""
-    };
-    const pa = paMapping[value]?.[regbus?.name] || "";
-    console.log(pa);
-    const min = minie?.[regbus?.name];
-    const max = maxie?.[regbus?.name];
-    if (pa) {
-      setpa(pa);
-    }
-    if (min) {
-      setmin(min);
-    }
-    if (max) {
-      setmax(max);
-    }
-    setRegbus({
-      ...regbus,
-      [name]: value
-    });
+
+    const selectedInvestment = investmentlists.find(
+      (inv) => inv.name === regbus.name
+    );
+    if (!selectedInvestment) return;
+
+    setRegbus((prev) => ({ ...prev, [name]: value }));
+
+    // Update min, max, and pa based on duration
+    setmin(
+      selectedInvestment[`day${value.replace("Days", "")}amountFrom`] ||
+        selectedInvestment.amountFrom
+    );
+    setmax(
+      selectedInvestment[`day${value.replace("Days", "")}amountTo`] ||
+        selectedInvestment.amountTo
+    );
+    setpa(selectedInvestment[`day${value.replace("Days", "")}rate`] || "");
+    setpenalty(
+      selectedInvestment[`day${value.replace("Days", "")}penalty`] || ""
+    );
   };
 
   console.log(pa);
 
   const CreateInvestmentPackage = () => {
     const additionalFields = {};
-    console.log(pa);
-    const parsedPa = parseFloat(pa) || 0;
+    const parsedPa = parseFloat(pa) || 0; // Ensure pa is a number or fallback to 0
+
+    // Find the selected investment from the investment list
+    const selectedInvestment = investmentlists.find(
+      (inv) => inv.name === regbus?.name
+    );
+    if (!selectedInvestment) return;
+
+    // Check the duration (day) selected and set the rate and penalty accordingly
     if (regbus?.day === "90Days") {
       additionalFields.day90rate = parsedPa;
-      additionalFields.day90penalty = 0.2;
+      additionalFields.day90penalty = selectedInvestment.day90penalty || 0.2; // Dynamic penalty
     } else if (regbus?.day === "180Days") {
       additionalFields.day180rate = parsedPa;
-      additionalFields.day180penalty = 0.2;
+      additionalFields.day180penalty = selectedInvestment.day180penalty || 0.2; // Dynamic penalty
     } else if (regbus?.day === "270Days") {
       additionalFields.day270rate = parsedPa;
-      additionalFields.day270penalty = 0.2;
+      additionalFields.day270penalty = selectedInvestment.day270penalty || 0.2; // Dynamic penalty
     } else if (regbus?.day === "365Days") {
       additionalFields.day365rate = parsedPa;
-      additionalFields.day365penalty = 0.2;
+      additionalFields.day365penalty = selectedInvestment.day365penalty || 0.2; // Dynamic penalty
     }
+
+    // Build the final content object for the investment package
     const content = {
       name: regbus?.name,
       amountFrom: min,
       amountTo: max,
       status: regbus?.status,
-      ...additionalFields
+      ...additionalFields // Spread additional fields dynamically based on day selected
     };
-    console.log(content);
+
+    console.log(content); // Log the content to verify the final structure
     dispatch(CreateInvestment({ content }));
   };
 
@@ -246,7 +324,7 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
   console.log(createinvest);
 
   useEffect(() => {
-    if (createinvest?.status && !authenticatingcreateinvest) {
+    if (createinvest?.status !== "False" && !authenticatingcreateinvest) {
       setStep(3);
     }
   }, [createinvest?.status, authenticatingcreateinvest]);
@@ -344,15 +422,16 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
             name="name"
             value={regbus?.name}
             //    earningPartnerId
-            options={[
-              "Basic",
-              "ESSENTIALS",
-              "ADVANCED",
-              "PREMIUM",
-              "EXECUTIVE",
-              "PRESTIGE",
-              "ELITE"
-            ]}
+            options={investmentlists.map((inv) => inv.name)}
+            // options={[
+            //   "Basic",
+            //   "ESSENTIALS",
+            //   "ADVANCED",
+            //   "PREMIUM",
+            //   "EXECUTIVE",
+            //   "PRESTIGE",
+            //   "ELITE"
+            // ]}
           />
           <ModalBoxSelect
             label="Duration"
@@ -429,6 +508,14 @@ const AppUserModal = ({ setStep, step, setReload, ids, setIds }) => {
             onChange={(e) => Change(e)}
             name="day"
             value={pa}
+            placeholder={`${`NGN 5000`}`}
+          />
+          <ModalInputText
+            disable
+            label="Penalty"
+            onChange={(e) => Change(e)}
+            name="day"
+            value={penalty}
             placeholder={`${`NGN 5000`}`}
           />
         </div>

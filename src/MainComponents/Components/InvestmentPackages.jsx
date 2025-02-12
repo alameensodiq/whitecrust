@@ -32,6 +32,7 @@ const InvestmentPackages = () => {
   useEffect(() => {
     // if(userData !== undefined && userData !== null){
     dispatch(Investment({ endDate, startDate, currentPage, search, download }));
+    setStep(0);
     if (reload) {
       dispatch(
         Investment({ endDate, startDate, currentPage, search, download })
@@ -43,7 +44,7 @@ const InvestmentPackages = () => {
     // } else {
     //   navigate("/");
     // }
-  }, [endDate, startDate, currentPage, search, download, reload, step]);
+  }, [endDate, startDate, currentPage, search, download, reload]);
 
   const { investment, authenticatinginvestment } = useSelector(
     (state) => state.investment
@@ -130,7 +131,12 @@ const InvestmentPackages = () => {
       <div className="w-[15%] h-[100%]">
         <Sidebar />
       </div>
-      <AppUserModal setStep={setStep} step={step} setReload={setReload} />
+      <AppUserModal
+        investmentlists={investment?.data?.results}
+        setStep={setStep}
+        step={step}
+        setReload={setReload}
+      />
       <div className="flex flex-col w-[85%] h-[100%]">
         <div className="w-[100%] h-[20%]">
           <Navbar title={"Investments"} />

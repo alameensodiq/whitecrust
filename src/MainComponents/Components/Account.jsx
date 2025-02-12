@@ -168,7 +168,7 @@ const Account = () => {
                   Download Report <Download />
                 </button>
               </div>
-              <Tables account data={accounts} />
+              <Tables currentPage={currentPage} account data={accounts} />
               <Pagination
                 set={activater}
                 currentPage={currentPage}

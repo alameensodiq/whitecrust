@@ -16,7 +16,7 @@ const Transfers = () => {
   const [whitecrust, setWhitecrust] = useState(true);
   const [other, setOther] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(50);
+  const [postsPerPage, setPostsPerPage] = useState(30);
   const [activater, setActivater] = useState(1);
   const [download, setDownload] = useState(false);
 
@@ -225,7 +225,11 @@ const Transfers = () => {
                   </button>
                 </div>
               </div>
-              <Tables transfers data={whitecrust ? samebank : otherbank} />
+              <Tables
+                currentPage={currentPage}
+                transfers
+                data={whitecrust ? samebank : otherbank}
+              />
               <Pagination
                 set={activater}
                 currentPage={currentPage}

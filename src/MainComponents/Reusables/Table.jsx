@@ -22,7 +22,8 @@ const Tables = ({
   investmentstypes,
   investmentspackages,
   cables,
-  report
+  report,
+  currentPage
 }) => {
   const navigate = useNavigate();
   const theme = createTheme({
@@ -118,7 +119,7 @@ const Tables = ({
               {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "5%" }}>
-                    {index + 1}
+                    {(currentPage - 1) * 10 + index + 1}
                   </StyledTableCell>
                   <StyledTableCell
                     className="text-dob"
@@ -213,6 +214,7 @@ const Tables = ({
           >
             <TableHead>
               <TableRow style={{ paddingRight: "0px" }}>
+                <StyledTableCell style={{ width: "10%" }}>S/N</StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
                   DATE CREATED
                 </StyledTableCell>
@@ -243,6 +245,9 @@ const Tables = ({
               {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "10%" }}>
+                    {(currentPage - 1) * 10 + index + 1}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
                     <Moment format="DD-MM-YYYY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
@@ -264,9 +269,19 @@ const Tables = ({
                     {item?.reference ? item?.reference : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
-                      Successful
-                    </button>
+                    {item.status === "success" ? (
+                      <button className="bg-successbg h-[30px] w-[100%] rounded-full text-successtext font-semibold text-[9px]">
+                        Successful
+                      </button>
+                    ) : item.status === "pending" ? (
+                      <button className="bg-pendingbg h-[30px] w-[100%] rounded-full text-pendingtext font-semibold text-[9px]">
+                        Pending
+                      </button>
+                    ) : (
+                      <button className="bg-failedbg h-[30px] w-[100%] rounded-full text-failedtext font-semibold text-[9px]">
+                        Failed
+                      </button>
+                    )}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -366,7 +381,7 @@ const Tables = ({
               {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {index + 1}
+                    {(currentPage - 1) * 10 + index + 1}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.user?.useraccounts[0]?.accountNo
@@ -374,8 +389,8 @@ const Tables = ({
                       : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
-                    {item?.user?.userprofile?.otherName
-                      ? item?.user?.userprofile?.otherName
+                    {item?.user?.userprofile?.full_name
+                      ? item?.user?.userprofile?.full_name
                       : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
@@ -534,7 +549,7 @@ const Tables = ({
                     {/* <Moment format="DD/MM/YYY">
                       {item?.investmentInfo?.dateCreated}
                     </Moment> */}
-                    ----
+                    <Moment format="DD/MM/YY">{item?.maturity_date}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     {item?.amount ? item?.amount : 0}
@@ -1142,7 +1157,7 @@ const Tables = ({
                     className="text-dob"
                     style={{ width: "20%" }}
                   >
-                    {index + 1}
+                    {(currentPage - 1) * 10 + index + 1}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
                     {item?.name}
