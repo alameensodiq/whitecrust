@@ -28,6 +28,7 @@ const AccountDetail = () => {
 
   useEffect(() => {
     dispatch(AccountDetails({ id }));
+    setStep(0);
     setIds(id);
     if (reload) {
       dispatch(AccountDetails({ id }));
@@ -98,7 +99,7 @@ const AccountDetail = () => {
                 className="text-[14px] lg:text-[16px]"
                 style={{ color: "#101828" }}
               >
-                {accountdetails?.user?.userprofile?.otherName}
+                {accountdetails?.user?.userprofile?.full_name}
               </span>
             </div>
             <div>
@@ -112,7 +113,7 @@ const AccountDetail = () => {
                 className="text-[14px] lg:text-[16px]"
                 style={{ color: "#101828" }}
               >
-                {accountdetails?.user?.userprofile?.otherName}
+                {accountdetails?.user?.userprofile?.full_name}
               </span>
               <Action
                 style={{ cursor: "pointer" }}
@@ -214,7 +215,7 @@ const AccountDetail = () => {
                       Full name
                     </span>
                     <span className="text-[#101828] text-[12px] lg:text-[14px] md:text-[14px] w-[50%]">
-                      {accountdetails?.user?.userprofile?.otherName}
+                      {accountdetails?.user?.userprofile?.full_name}
                     </span>
                   </div>
                   <div className="flex flex-row gap-8 items-center justify-between w-[80%] lg:w-[40%] md:[40%]">
@@ -246,7 +247,9 @@ const AccountDetail = () => {
                       DOB
                     </span>
                     <span className="text-[#101828] text-[12px] lg:text-[14px] md:text-[14px] w-[50%]">
-                      {accountdetails?.user?.userprofile?.dob}
+                      {accountdetails?.user?.userprofile?.dob
+                        ? accountdetails?.user?.userprofile?.dob
+                        : "N/A"}
                     </span>
                   </div>
                   <div className="flex flex-row gap-8 items-center justify-between w-[80%] lg:w-[40%] md:[40%]">
