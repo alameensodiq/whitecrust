@@ -266,6 +266,15 @@ const AppUserModal = ({
     );
   };
 
+  const changeType = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    setRegbus((prev) => ({
+      ...prev,
+      name: e.target.value
+    }));
+  };
+
   console.log(pa);
 
   const CreateInvestmentPackage = () => {
@@ -377,7 +386,7 @@ const AppUserModal = ({
         <div className="flex flex-row justify-between pl-10 w-[100%] pb-4">
           <ModalInputText
             label="Name of type"
-            onChange={(e) => Change(e)}
+            onChange={(e) => changeType(e)}
             name="name"
             value={regbus?.name}
             placeholder={`${`Enter type name`}`}
