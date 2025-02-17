@@ -130,7 +130,9 @@ const Tables = ({
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.full_name ? item?.full_name : "N/A"}
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}></StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.username}
+                  </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.email ? item?.email : "N/A"}
                   </StyledTableCell>
@@ -692,7 +694,11 @@ const Tables = ({
                     {item?.officeAddress}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.loanStatus ? (
+                    {item?.loanStatus === "pending" ? (
+                      <button className="bg-pendingbg h-[30px] w-[100%] rounded-full text-pendingtext font-semibold text-[9px]">
+                        Pending
+                      </button>
+                    ) : item?.loanStatus === "declined" ? (
                       <button className="bg-failedbg h-[30px] w-[100%] rounded-full text-failedtext font-semibold text-[9px]">
                         Declined
                       </button>
@@ -1515,7 +1521,7 @@ const Tables = ({
                     <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
-                    {"N/A"}
+                    {item?.transaction_type}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "20%" }}>
                     {item?.user?.firstName}
