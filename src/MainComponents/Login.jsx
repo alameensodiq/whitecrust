@@ -45,11 +45,11 @@ const Login = () => {
 
   console.log(loginuser);
 
-  if (loginuser?.status && log) {
+  if (loginuser?.status !== "False" && log) {
     console.log(loginuser?.status);
     console.log(!authenticating);
     setLog(false);
-    window.location.pathname = "/dashboard";
+    // window.location.pathname = "/dashboard";
   }
 
   return (

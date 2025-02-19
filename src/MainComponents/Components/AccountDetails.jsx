@@ -120,7 +120,7 @@ const AccountDetail = () => {
                 onClick={() => setShow(!show)}
               />
               {show && (
-                <div className="bg-white rounded-[8px] absolute flex flex-col justify-between w-[130px] h-[80px] p-3 border-[1px] left-[35%]">
+                <div className="bg-white rounded-[8px] absolute flex flex-col justify-between w-[130px] h-[80px] p-3 border-[1px] left-[20%]">
                   <div
                     className="flex flex-row items-center gap-1 cursor-pointer"
                     onClick={() => {
@@ -197,7 +197,7 @@ const AccountDetail = () => {
                     <div className="w-[50px] h-[2px] bg-route-color" />
                   )}
                   {other && (
-                    <div className="w-[80px] h-[2px] bg-route-color lg:ml-[5%] md:ml-[8%] ml-[30%]" />
+                    <div className="w-[80px] h-[2px] bg-route-color lg:ml-[6%] md:ml-[8%] ml-[30%]" />
                   )}
                 </div>
               </div>

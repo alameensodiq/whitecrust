@@ -27,8 +27,13 @@ export const LoginUser = createAsyncThunk(
         }
       );
       let data = await response.json();
-      if (data?.status === "True") {
+      // if (data?.status === "True") {
+      //   toast.success(data.message);
+      //   window.location.pathname = "/dashboard";
+      // }
+      if (data?.status !== "False") {
         toast.success(data.message);
+        window.location.pathname = "/dashboard";
       }
       if (data?.status === "False") {
         toast.error(data.message);
