@@ -1250,13 +1250,31 @@ const Tables = ({
                   INVESTMENT TYPE
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
-                  DURATION
+                  90 DURATION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  90 INTEREST(P.A)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  180 DURATION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  180 INTEREST(P.A)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  270 DURATION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  270 INTEREST(P.A)
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "10%" }}>
+                  365 DURATION
+                </StyledTableCell>
+                <StyledTableCell style={{ width: "15%" }}>
+                  365 INTEREST(P.A)
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
                   AMOUNT(N)
-                </StyledTableCell>
-                <StyledTableCell style={{ width: "15%" }}>
-                  INTEREST(P.A)
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
                   DATE CREATED
@@ -1279,12 +1297,32 @@ const Tables = ({
                     {item?.name}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    ----
+                    {item?.day90rate}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.day90penalty}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.day180rate}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.day180penalty}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.day270rate}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.day270penalty}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "10%" }}>
+                    {item?.day365rate}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ width: "15%" }}>
+                    {item?.day365penalty}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "15%" }}>
                     {item?.amountFrom}
                   </StyledTableCell>
-                  <StyledTableCell style={{ width: "15%" }}>--</StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
                     <Moment format="DD/MM/YY">{item?.dateCreated}</Moment>
                   </StyledTableCell>
@@ -1296,7 +1334,7 @@ const Tables = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "40%",
+                          width: "100%",
                           height: "20px",
                           background: "#ed7d6c",
                           color: "#f4270b",
@@ -1312,7 +1350,7 @@ const Tables = ({
                             borderRadius: "50%"
                           }}
                         ></span>{" "}
-                        Pending
+                        Inactive
                       </button>
                     ) : (
                       <button
@@ -1321,7 +1359,7 @@ const Tables = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "center",
-                          width: "50%",
+                          width: "100%",
                           height: "20px",
                           background: "#ECFDF3",
                           color: "#027A48",
