@@ -1250,28 +1250,28 @@ const Tables = ({
                   INVESTMENT TYPE
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
-                  90 DURATION
+                  90Days INTEREST
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
-                  90 INTEREST(P.A)
+                  90 Penalty
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
-                  180 DURATION
+                  180Days INTEREST
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
-                  180 INTEREST(P.A)
+                  180 Penalty
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
-                  270 DURATION
+                  270Days INTEREST
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
-                  270 INTEREST(P.A)
+                  270 Penalty
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "10%" }}>
-                  365 DURATION
+                  365Days INTEREST
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
-                  365 INTEREST(P.A)
+                  365 Penalty
                 </StyledTableCell>
                 <StyledTableCell style={{ width: "15%" }}>
                   AMOUNT(N)
