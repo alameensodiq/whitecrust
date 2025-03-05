@@ -1,19 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as Edit } from "../../assets/phoneedit.svg";
 import { ReactComponent as Copy } from "../../assets/copy.svg";
 import Tables from "../Reusables/Table";
 import Sidebar from "../Reusables/Sidebar";
 import Navbar from "../Reusables/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { Activate } from "../Store/Apis/Activate";
+import AppUserModal from "../Reusables/Modal/AppUserModal";
+import toast from "react-hot-toast";
 
 const CustomerInfo = () => {
   const customerDetails = JSON.parse(sessionStorage.getItem("customerDetails"));
-  useEffect(() => {
-    return () => {};
-  }, []);
+  const dispatch = useDispatch();
+  const [step, setStep] = useState(0);
+  const [reload, setReload] = useState(false);
 
   console.log(customerDetails);
+
+  const { activate, authenticatingactivate } = useSelector(
+    (state) => state.activate
+  );
+  console.log(activate);
+
+  useEffect(() => {
+    setStep(0);
+    if (activate?.status) {
+      setStep(7);
+    }
+    return () => {};
+  }, [activate?.status, authenticatingactivate]);
+
   return (
     <div className="flex flex-row">
+      <AppUserModal setStep={setStep} step={step} setReload={setReload} />
       <div className="w-[15%] h-[100%]">
         <Sidebar />
       </div>
@@ -147,6 +166,24 @@ const CustomerInfo = () => {
                   <span className="text-[10px] px-[10px] py-[10px] text-color-user">
                     Unlocked
                   </span>
+                </div>
+              </div>
+              <div className="flex flex-row items-center justify-end">
+                <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        Activate({
+                          accountNumber:
+                            customerDetails?.user_account?.accountNo
+                        })
+                      )
+                    }
+                    disabled={customerDetails?.active}
+                    className="h-[30px] bg-button-bg text-white rounded-[8px] border-none"
+                  >
+                    {customerDetails?.active ? "Activate" : "Inactive"}
+                  </button>
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ import { ReactComponent as Success } from "../../../assets/successful.svg";
 import { ReactComponent as Approve } from "../../../assets/Approver.svg";
 import { ReactComponent as Reject } from "../../../assets/Reject.svg";
 import { AccountApprove } from "../../Store/Apis/AccountApprove";
+import { useNavigate } from "react-router-dom";
 
 const AppUserModal = ({
   setStep,
@@ -19,6 +20,7 @@ const AppUserModal = ({
   investmentlists = []
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [reject, setReject] = useState("");
   const [rejectionreasion, setrejectionreasion] = useState(false);
   const [regbus, setRegbus] = useState({
@@ -371,6 +373,10 @@ const AppUserModal = ({
     setmax("");
     setpa("");
     setReload(true);
+  };
+
+  const handleCustomerReload = () => {
+    navigate("/customers");
   };
   return (
     <div>
@@ -737,6 +743,59 @@ const AppUserModal = ({
             }}
           >
             <CreateButton name="Done" onClick={() => handleCloseModal4()} />
+          </div>
+        </div>
+      </AppModal>
+      <AppModal
+        step={7}
+        currentStep={step}
+        closeModal={handleCustomerReload}
+        // updateUserListData(update);
+        // window.location.reload()
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Reject />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              color: "#263BD4"
+            }}
+          >
+            Activated
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "5px",
+              fontSize: "12px",
+              color: "#263BD4"
+            }}
+          >
+            <span>You have successfully activated this user’s account</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px"
+            }}
+          >
+            <CreateButton name="Done" onClick={() => handleCustomerReload()} />
           </div>
         </div>
       </AppModal>
