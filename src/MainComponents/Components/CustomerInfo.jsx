@@ -176,7 +176,7 @@ const CustomerInfo = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-row items-center justify-end">
+              {/* <div className="flex flex-row items-center justify-end">
                 <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
                   <button
                     onClick={() =>
@@ -197,7 +197,7 @@ const CustomerInfo = () => {
                       : "Inactive"}
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
