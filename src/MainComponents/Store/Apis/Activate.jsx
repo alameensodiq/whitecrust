@@ -30,8 +30,8 @@ export const Activate = createAsyncThunk(
       if (data?.status === "True") {
         toast.success(data.message);
       }
-      if (data?.status === "False") {
-        toast.error(data.message);
+      if (!data?.status) {
+        toast.error(data[0]);
       }
       console.log(data);
       // sessionStorage.setItem("token", data?.data?.accessToken);
@@ -44,6 +44,7 @@ export const Activate = createAsyncThunk(
 
       return data;
     } catch (e) {
+      console.log(e);
       return thunkAPI.rejectWithValue({
         error: "Failed! To establish connection."
       });

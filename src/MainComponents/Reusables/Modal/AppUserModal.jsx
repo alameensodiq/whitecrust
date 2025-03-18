@@ -762,7 +762,7 @@ const AppUserModal = ({
             alignItems: "center"
           }}
         >
-          <Reject />
+          <Approve />
           <div
             style={{
               display: "flex",

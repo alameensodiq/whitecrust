@@ -24,11 +24,19 @@ const CustomerInfo = () => {
 
   useEffect(() => {
     setStep(0);
-    if (activate?.status) {
+    if (
+      activate?.data?.message &&
+      activate?.data?.is_account_activated &&
+      !activate?.status
+    ) {
       setStep(7);
     }
     return () => {};
-  }, [activate?.status, authenticatingactivate]);
+  }, [
+    activate?.data?.message,
+    activate?.data?.is_account_activated,
+    activate?.status
+  ]);
 
   return (
     <div className="flex flex-row">
@@ -179,10 +187,14 @@ const CustomerInfo = () => {
                         })
                       )
                     }
-                    disabled={customerDetails?.active}
+                    disabled={
+                      customerDetails?.user_account?.is_account_activated
+                    }
                     className="h-[30px] bg-button-bg text-white rounded-[8px] border-none"
                   >
-                    {customerDetails?.active ? "Activate" : "Inactive"}
+                    {customerDetails?.user_account?.is_account_activated
+                      ? "Activate"
+                      : "Inactive"}
                   </button>
                 </div>
               </div>
