@@ -115,10 +115,15 @@ const AccountDetail = () => {
               >
                 {accountdetails?.user?.userprofile?.full_name}
               </span>
-              <Action
-                style={{ cursor: "pointer" }}
-                onClick={() => setShow(!show)}
-              />
+              {accountdetails?.status === "pending" ? (
+                ""
+              ) : (
+                <Action
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShow(!show)}
+                />
+              )}
+
               {show && (
                 <div className="bg-white rounded-[8px] absolute flex flex-col justify-between w-[130px] h-[80px] p-3 border-[1px] left-[20%]">
                   <div

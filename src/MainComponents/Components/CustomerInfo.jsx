@@ -8,12 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Activate } from "../Store/Apis/Activate";
 import AppUserModal from "../Reusables/Modal/AppUserModal";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as Back } from "../../assets/Back.svg";
 
 const CustomerInfo = () => {
   const customerDetails = JSON.parse(sessionStorage.getItem("customerDetails"));
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
 
   console.log(customerDetails);
 
@@ -38,6 +41,18 @@ const CustomerInfo = () => {
     activate?.status
   ]);
 
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (accountNumber) => {
+    if (accountNumber) {
+      navigator.clipboard.writeText(accountNumber).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1000); // Optional feedback
+      });
+      toast.success("Account copied");
+    }
+  };
+
   return (
     <div className="flex flex-row">
       <AppUserModal setStep={setStep} step={step} setReload={setReload} />
@@ -49,6 +64,12 @@ const CustomerInfo = () => {
           <Navbar title={"Customers"} />
         </div>
         <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
+          <div>
+            <Back
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/customers")}
+            />
+          </div>
           <div className="flex flex-row justify-between">
             <span className="text-route-name text-[28px] font-semibold">
               Customers
@@ -143,9 +164,13 @@ const CustomerInfo = () => {
                   <span className="bg-info-top border-b-2 text-[10px] px-[10px] py-[10px] text-info-bottom">
                     ACCOUNT NUMBER
                   </span>
-                  <div className="flex flex-row justify-between text-[10px] px-[10px] py-[10px] text-color-user">
-                    <span>-------</span>
-                    <Copy />
+                  <div className="flex flex-row justify-between text-[10px] px-[10px] py-[10px] text-color-user cursor-pointer">
+                    <span>{customerDetails?.user_account?.accountNo}</span>
+                    <Copy
+                      onClick={() =>
+                        handleCopy(customerDetails?.user_account?.accountNo)
+                      }
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
@@ -154,7 +179,7 @@ const CustomerInfo = () => {
                   </span>
                   <div className="flex flex-row justify-between text-[10px] px-[10px] py-[10px] text-color-user">
                     <span>{customerDetails?.phoneNumber}</span>
-                    <Edit />
+                    {/* <Edit /> */}
                   </div>
                 </div>
               </div>
@@ -163,9 +188,12 @@ const CustomerInfo = () => {
                   <span className="bg-info-top border-b-2 text-[10px] px-[10px] py-[10px] text-info-bottom">
                     TIER
                   </span>
-                  <select className="text-[10px] outline-none px-[10px] py-[10px] text-color-user">
+                  {/* <select className="text-[10px] outline-none px-[10px] py-[10px] text-color-user">
                     <option>{customerDetails?.tier?.tier}</option>
-                  </select>
+                  </select> */}
+                  <span className="text-[10px] outline-none px-[10px] py-[10px] text-color-user">
+                    {customerDetails?.tier?.tier}
+                  </span>
                 </div>
                 <div className="flex flex-col border rounded-custom w-[40%] h-[20%]">
                   <span className="bg-info-top border-b-2 text-[10px] px-[10px] py-[10px] text-info-bottom">

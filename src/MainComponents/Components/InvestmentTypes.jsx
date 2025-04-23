@@ -136,80 +136,84 @@ const InvestmentTypes = () => {
           <Navbar title={"Investments"} />
         </div>
         <AppUserModal setStep={setStep} step={step} setReload={setReload} />
-        {authenticatinginvestment ? (
-          <Loader />
-        ) : (
-          <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
-            <div className="flex flex-row justify-between">
-              <span className="text-route-name text-[28px] font-semibold">
-                Investment Types
-              </span>
-              <button
-                onClick={() => setStep(1)}
-                className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]"
-              >
-                <Plus />
-                Create Investment Type
-              </button>
-            </div>
-            <div className="flex flex-col border-input-color border-[1px] rounded-custom py-4 gap-6">
-              <div className="flex flex-row justify-between gap-4 px-3">
-                <div className="relative flex flex-row w-[50%]">
-                  <div className="absolute top-3 left-4">
-                    <Search />
-                  </div>
-                  <input
-                    className="border-input-color border-[1px] rounded-custom w-[85%] outline-none pl-[60px] text-[13px]"
-                    placeholder="Search by name,type"
-                  />
-                </div>
 
-                <div className="flex flex-row justify-end gap-4 px-3 w-[50%]">
-                  <input
-                    type="date"
-                    className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
-                    placeholder="Search by name, customerID, account number, transaction reference"
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                  <input
-                    type="date"
-                    className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
-                    placeholder="Search by name, customerID, account number, transaction reference"
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                  <button
-                    onClick={() => {
-                      setDownload(true);
-                      handleDownload();
-                    }}
-                    className="px-2 flex flex-row gap-1 items-center bg-route-color w-[25%] rounded-custom text-white font-semibold text-[11px]"
-                  >
-                    Download Report <Download />
-                  </button>
-                </div>
-              </div>
-              <hr className="" />
-              <div className="flex flex-row justify-end px-8 gap-2">
-                <Filter />
-                <span className="text-route-noncolor text-[12px]">Filters</span>
-              </div>
-              <Tables
-                currentPage={currentPage}
-                investmentstypes
-                data={investment?.data?.results}
-              />
-              <Pagination
-                set={activater}
-                currentPage={currentPage}
-                postsPerPage={postsPerPage}
-                totalPosts={totalPosts}
-                paginate={paginate}
-                previous={previous}
-                next={next}
-              />
-            </div>
+        <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
+          <div className="flex flex-row justify-between">
+            <span className="text-route-name text-[28px] font-semibold">
+              Investment Types
+            </span>
+            <button
+              onClick={() => setStep(1)}
+              className="px-2 flex flex-row gap-1 items-center justify-center bg-route-color w-[17%] rounded-custom text-white font-semibold text-[11px]"
+            >
+              <Plus />
+              Create Investment Type
+            </button>
           </div>
-        )}
+          <div className="flex flex-col border-input-color border-[1px] rounded-custom py-4 gap-6">
+            <div className="flex flex-row justify-between gap-4 px-3">
+              <div className="relative flex flex-row w-[50%]">
+                <div className="absolute top-3 left-4">
+                  <Search />
+                </div>
+                <input
+                  className="border-input-color border-[1px] rounded-custom w-[85%] outline-none pl-[60px] text-[13px]"
+                  placeholder="Search by name,type"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-row justify-end gap-4 px-3 w-[50%]">
+                <input
+                  type="date"
+                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                  placeholder="Search by name, customerID, account number, transaction reference"
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+                <input
+                  type="date"
+                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                  placeholder="Search by name, customerID, account number, transaction reference"
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+                <button
+                  onClick={() => {
+                    setDownload(true);
+                    handleDownload();
+                  }}
+                  className="px-2 flex flex-row gap-1 items-center bg-route-color w-[25%] rounded-custom text-white font-semibold text-[11px]"
+                >
+                  Download Report <Download />
+                </button>
+              </div>
+            </div>
+            <hr className="" />
+            <div className="flex flex-row justify-end px-8 gap-2">
+              <Filter />
+              <span className="text-route-noncolor text-[12px]">Filters</span>
+            </div>
+            {authenticatinginvestment ? (
+              <Loader />
+            ) : (
+              <>
+                <Tables
+                  currentPage={currentPage}
+                  investmentstypes
+                  data={investment?.data?.results}
+                />
+                <Pagination
+                  set={activater}
+                  currentPage={currentPage}
+                  postsPerPage={postsPerPage}
+                  totalPosts={totalPosts}
+                  paginate={paginate}
+                  previous={previous}
+                  next={next}
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

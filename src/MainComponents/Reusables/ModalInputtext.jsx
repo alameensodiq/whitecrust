@@ -16,7 +16,7 @@ const ModalInputText = ({
   return (
     <div className="flex flex-col w-[50%]">
       <div className="flex flex-col items-start justify-start gap-2 w-[100%]">
-        <span className="flex items-center gap-2 text-sm font-medium leading-5 text-left text-[#1E1B39]">
+        <span className="flex items-center gap-2 text-md font-medium leading-5 text-left text-[#1E1B39]">
           {label}
           {!nosign && <span className="text-red-500">*</span>}
         </span>

@@ -119,7 +119,7 @@ const Tables = ({
               {data?.map((item, index) => (
                 <StyledTableRow>
                   <StyledTableCell style={{ width: "5%" }}>
-                    {(currentPage - 1) * 10 + index + 1}
+                    {(currentPage - 1) * 30 + index + 1}
                   </StyledTableCell>
                   <StyledTableCell
                     className="text-dob"
@@ -565,7 +565,7 @@ const Tables = ({
                       : "N/A"}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    {item?.status === "running" ? (
+                    {item?.status !== "paid" ? (
                       <button
                         style={{
                           display: "flex",
@@ -588,7 +588,7 @@ const Tables = ({
                             borderRadius: "50%"
                           }}
                         ></span>{" "}
-                        Pending
+                        {item?.status}
                       </button>
                     ) : (
                       <button
@@ -613,12 +613,12 @@ const Tables = ({
                             borderRadius: "50%"
                           }}
                         ></span>{" "}
-                        Active
+                        {item?.status}
                       </button>
                     )}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: "10%" }}>
-                    <span style={{ color: "#263BD4" }}>View</span>
+                    {/* <span style={{ color: "#263BD4" }}>View</span> */}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

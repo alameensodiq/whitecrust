@@ -41,7 +41,7 @@ export default function AppModal({
           <div className={`w-full flex  items-center  px-2 `}>
             <div className="flex items-center justify-between px-10 py-5 w-full">
               <div className="w-1/2  justify-start">
-                <div className={`text-[15px] font-semibold text-[#1E1B39]`}>
+                <div className={`text-[18px] font-semibold text-[#1E1B39]`}>
                   {heading}
                 </div>
               </div>

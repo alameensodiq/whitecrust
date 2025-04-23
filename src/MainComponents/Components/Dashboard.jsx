@@ -379,7 +379,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex flex-col border rounded-custom gap-2 pt-3">
                   <div className="flex flex-row px-4 gap-4 items-center justify-end">
-                    <span className="text-[14px]">Previous Month</span>
+                    {/* <span className="text-[14px]">Previous Month</span> */}
                     {/* <div className="position:relative w-[120px] h-[30px] rounded-custom px-[4px] flex flex-row border items-center"> */}
                     {/* <input className='input' type='date' /> */}
                     {/* <DatePicker
@@ -415,10 +415,10 @@ const Dashboard = () => {
                   </span>
                 </div>
                 <div className="flex flex-col border rounded-custom gap-6 py-6">
-                  <div className="flex flex-row px-4 gap-4 items-center justify-end">
+                  {/* <div className="flex flex-row px-4 gap-4 items-center justify-end">
                     <Filtering />
                     <span className="text-[14px]">Filters</span>
-                  </div>
+                  </div> */}
                   <Tables overview data={customerdashboards?.data?.results} />
                 </div>
               </div>

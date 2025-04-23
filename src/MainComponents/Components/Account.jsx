@@ -58,19 +58,19 @@ const Account = () => {
     console.log("Current accounts state:", accounts);
 
     // Check if accounts and the results array is available
-    if (!accounts || !accounts.data || !Array.isArray(accounts.data.results)) {
+    if (!accounts || !Array.isArray(accounts)) {
       toast.error("Account data is not loaded yet.");
       return;
     }
 
-    if (accounts.data.results.length === 0) {
-      toast.error("No data available for download.");
-      return;
-    }
+    // if (accounts.data.results.length === 0) {
+    //   toast.error("No data available for download.");
+    //   return;
+    // }
 
     // Extract headers from the first item in the results, skipping object values
-    const headers = Object.keys(accounts.data.results[0]).filter((key) => {
-      return typeof accounts.data.results[0][key] !== "object";
+    const headers = Object.keys(accounts[0]).filter((key) => {
+      return typeof accounts[0][key] !== "object";
     });
     console.log("Filtered Headers:", headers);
 
@@ -79,7 +79,7 @@ const Account = () => {
     console.log("Header Row:", headerRow);
 
     // Prepare values for each row
-    const rows = accounts.data.results
+    const rows = accounts
       .map((item) => {
         return headers
           .map((header) => {
@@ -122,65 +122,67 @@ const Account = () => {
         <div className="w-[100%] h-[20%]">
           <Navbar title={" Account"} />
         </div>
-        {authenticatingaccounts ? (
-          <Loader />
-        ) : (
-          <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
-            <div className="flex flex-col lg:flex-row md:flex-col justify-between">
-              <span className="text-route-name lg:text-[28px] md:lg:text-[28px] sm:text-[20px] font-semibold">
-                Account Upgrade
-              </span>
-              <div className="relative flex flex-row lg:w-[50%] sm:w-[80%]">
-                <div className="absolute lg:top-3 left-4 top-2">
-                  <Search />
-                </div>
-                <input
-                  className="border-input-color border-[1px] rounded-tl-custom rounded-bl-custom w-[85%] outline-none pl-[60px] text-[13px] h-[30px] lg:h-[42px]"
-                  placeholder="Search by name, customerID, account number, transaction reference"
-                  onChange={(e) => setSearcher(e.target.value)}
-                />
-                <button className="bg-route-color w-[15%] rounded-tr-custom rounded-br-custom text-white font-semibold text-[12px]">
-                  Search
-                </button>
+        <div className="w-[100%] py-9 px-5 flex flex-col gap-10">
+          <div className="flex flex-col lg:flex-row md:flex-col justify-between">
+            <span className="text-route-name lg:text-[28px] md:lg:text-[28px] sm:text-[20px] font-semibold">
+              Account Upgrade
+            </span>
+            <div className="relative flex flex-row lg:w-[50%] sm:w-[80%]">
+              <div className="absolute lg:top-3 left-4 top-2">
+                <Search />
               </div>
-            </div>
-            <div className="flex flex-col border-input-color border-[1px] rounded-custom py-4 gap-6">
-              <div className="flex flex-col lg:flex-row justify-end gap-4 px-3">
-                <input
-                  type="date"
-                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
-                  placeholder="Search by name, customerID, account number, transaction reference"
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-                <input
-                  type="date"
-                  className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
-                  placeholder="Search by name, customerID, account number, transaction reference"
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-                <button
-                  onClick={() => {
-                    setDownload(true);
-                    handleDownload();
-                  }}
-                  className="flex flex-row px-2 gap-1  bg-route-color w-[130px] lg:w-[12%] rounded-custom text-white font-semibold items-center text-[11px] h-[40px]"
-                >
-                  Download Report <Download />
-                </button>
-              </div>
-              <Tables currentPage={currentPage} account data={accounts} />
-              <Pagination
-                set={activater}
-                currentPage={currentPage}
-                postsPerPage={postsPerPage}
-                totalPosts={totalPosts}
-                paginate={paginate}
-                previous={previous}
-                next={next}
+              <input
+                className="border-input-color border-[1px] rounded-tl-custom rounded-bl-custom w-[85%] outline-none pl-[60px] text-[13px] h-[30px] lg:h-[42px]"
+                placeholder="Search by name, customerID, account number, transaction reference"
+                onChange={(e) => setSearcher(e.target.value)}
               />
+              <button className="bg-route-color w-[15%] rounded-tr-custom rounded-br-custom text-white font-semibold text-[12px]">
+                Search
+              </button>
             </div>
           </div>
-        )}
+          <div className="flex flex-col border-input-color border-[1px] rounded-custom py-4 gap-6">
+            <div className="flex flex-col lg:flex-row justify-end gap-4 px-3">
+              <input
+                type="date"
+                className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                placeholder="Search by name, customerID, account number, transaction reference"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <input
+                type="date"
+                className="border-input-color border-[1px] rounded-custom  w-[117px] h-[36px] outline-none px-[10px] text-[11px]"
+                placeholder="Search by name, customerID, account number, transaction reference"
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+              <button
+                onClick={() => {
+                  setDownload(true);
+                  handleDownload();
+                }}
+                className="flex flex-row px-2 gap-1  bg-route-color w-[130px] lg:w-[12%] rounded-custom text-white font-semibold items-center text-[11px] h-[40px]"
+              >
+                Download Report <Download />
+              </button>
+            </div>
+            {authenticatingaccounts ? (
+              <Loader />
+            ) : (
+              <>
+                <Tables currentPage={currentPage} account data={accounts} />
+                <Pagination
+                  set={activater}
+                  currentPage={currentPage}
+                  postsPerPage={postsPerPage}
+                  totalPosts={totalPosts}
+                  paginate={paginate}
+                  previous={previous}
+                  next={next}
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

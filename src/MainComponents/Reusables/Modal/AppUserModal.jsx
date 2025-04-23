@@ -335,7 +335,7 @@ const AppUserModal = ({
   console.log(createinvest);
 
   useEffect(() => {
-    if (createinvest?.status !== "False" && !authenticatingcreateinvest) {
+    if (createinvest?.status === true && !authenticatingcreateinvest) {
       setStep(3);
     }
   }, [createinvest?.status, authenticatingcreateinvest]);

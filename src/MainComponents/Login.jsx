@@ -84,10 +84,10 @@ const Login = () => {
           onClick={() => Authentication()}
           name={authenticating ? "Loading..." : "Login"}
         />
-        <span className="font-inter text-custom-bg text-[14px]">
+        {/* <span className="font-inter text-custom-bg text-[14px]">
           Didn't Forget Password?{" "}
           <span className="text-button-bg font-medium">sign in</span>
-        </span>
+        </span> */}
       </div>
     </div>
   );
