@@ -114,9 +114,18 @@ const Report = () => {
     setCurrentPage(number);
     setActivater(number);
   };
+
+  const formatNumberWithCommasUser = (number) => {
+    if (number == null || isNaN(number)) return "0"; // Handle null, undefined, NaN
+    const roundedUp = Math.ceil(Number(number)); // Round up to the nearest whole number
+    return roundedUp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   const formatNumberWithCommas = (number) => {
-    if (number == null) return "0"; // Handle null or undefined
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (number == null || isNaN(number)) return "0.00"; // Handle null, undefined, NaN
+    const fixedNumber = parseFloat(number).toFixed(2); // Convert to string with 2 decimal places
+    const parts = fixedNumber.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
   };
   return (
     <div className="flex flex-row">
@@ -172,10 +181,12 @@ const Report = () => {
                     Total Users
                   </span>
                   <span className="text-color-user text-[20px] font-bold">
-                    {formatNumberWithCommas(reportdashboard?.data?.total_user)}
+                    {formatNumberWithCommasUser(
+                      reportdashboard?.data?.total_user
+                    )}
                   </span>
                   <div className="flex flex-row gap-1 text-[10px]">
-                    <div className="flex flex-row items-center gap-1">
+                    {/* <div className="flex flex-row items-center gap-1">
                       <div
                         style={{
                           width: "10px",
@@ -187,8 +198,8 @@ const Report = () => {
                       <span className="flex flex-row gap-1">
                         Active: <span style={{ color: "#202224" }}>9900</span>
                       </span>
-                    </div>
-                    <div className="flex flex-row items-center gap-1">
+                    </div> */}
+                    {/* <div className="flex flex-row items-center gap-1">
                       <div
                         style={{
                           width: "10px",
@@ -200,7 +211,7 @@ const Report = () => {
                       <span className="flex flex-row gap-1">
                         Inactive: <span style={{ color: "#202224" }}>9900</span>
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div>
@@ -315,7 +326,7 @@ const Report = () => {
                     {/* <div className="flex lg:flex-row md:flex-row sm:flex-row lg:gap-10 md:gap-20 sm:gap-6"> */}
                     <div className="flex flex-row gap-1 items-center text-[12px]">
                       <span className="w-[15px] h-[15px] rounded-circle bg-details-color"></span>
-                      <span className="text-compare-second-card">Airtel</span>
+                      <span className="text-compare-second-card">Airtime</span>
                       <span className="text-circle-color">
                         {report?.data?.total_airtimepayment}
                       </span>
