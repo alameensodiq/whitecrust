@@ -53,19 +53,82 @@ const Electricity = () => {
     setActivater(number);
   };
 
+  // const handleDownload = () => {
+  //   console.log("Starting download function");
+
+  //   // Log the current accounts state
+  //   console.log("Current electricitieser state:", electricities);
+
+  //   // Check if accounts and the results array is available
+  //   if (
+  //     !electricities ||
+  //     !electricities.data ||
+  //     !Array.isArray(electricities.data.results)
+  //   ) {
+  //     toast.error("electricitieser data is not loaded yet.");
+  //     return;
+  //   }
+
+  //   if (electricities.data.results.length === 0) {
+  //     toast.error("No data available for download.");
+  //     return;
+  //   }
+
+  //   // Extract headers from the first item in the results, skipping object values
+  //   const headers = Object.keys(electricities.data.results[0]).filter((key) => {
+  //     return typeof electricities.data.results[0][key] !== "object";
+  //   });
+  //   console.log("Filtered Headers:", headers);
+
+  //   // Prepare the header row
+  //   const headerRow = headers.join(",");
+  //   console.log("Header Row:", headerRow);
+
+  //   // Prepare values for each row
+  //   const rows = electricities.data.results
+  //     .map((item) => {
+  //       return headers
+  //         .map((header) => {
+  //           return item[header] !== undefined ? item[header] : "";
+  //         })
+  //         .join(",");
+  //     })
+  //     .join("\n");
+
+  //   console.log("Filtered Values:", rows);
+
+  //   // Combine header row and values into CSV format
+  //   const csv = [headerRow, rows].join("\n");
+  //   console.log("CSV Content:", csv);
+
+  //   // Create Blob and URL for download
+  //   const blob = new Blob([csv], { type: "text/csv" });
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement("a");
+
+  //   a.download = `electricitieser_Report_${currentPage}.csv`; // Name the file appropriately
+  //   a.href = url;
+  //   document.body.appendChild(a); // Append to body for Firefox support
+  //   a.click();
+
+  //   // Cleanup
+  //   a.remove();
+  //   URL.revokeObjectURL(url);
+
+  //   console.log("Download triggered");
+
+  //   setDownload(false);
+  // };
+
   const handleDownload = () => {
     console.log("Starting download function");
 
-    // Log the current accounts state
-    console.log("Current electricitieser state:", electricities);
-
-    // Check if accounts and the results array is available
     if (
       !electricities ||
       !electricities.data ||
       !Array.isArray(electricities.data.results)
     ) {
-      toast.error("electricitieser data is not loaded yet.");
+      toast.error("Dataset is not loaded yet.");
       return;
     }
 
@@ -74,44 +137,51 @@ const Electricity = () => {
       return;
     }
 
-    // Extract headers from the first item in the results, skipping object values
-    const headers = Object.keys(electricities.data.results[0]).filter((key) => {
-      return typeof electricities.data.results[0][key] !== "object";
+    const fieldsToRemove = [
+      "Error Type",
+      "Notes",
+      "responseMessage",
+      "reference",
+      "user"
+    ];
+
+    const cleanedData = electricities.data.results.map((item) => {
+      const newItem = { ...item };
+
+      // Extract user.name as userName if available
+      if (item.user && item.user.name) {
+        newItem.userName = item.user.name;
+      }
+
+      // Remove unwanted fields
+      fieldsToRemove.forEach((field) => {
+        delete newItem[field];
+      });
+
+      return newItem;
     });
-    console.log("Filtered Headers:", headers);
 
-    // Prepare the header row
+    const headers = Object.keys(cleanedData[0]);
     const headerRow = headers.join(",");
-    console.log("Header Row:", headerRow);
 
-    // Prepare values for each row
-    const rows = electricities.data.results
-      .map((item) => {
-        return headers
-          .map((header) => {
-            return item[header] !== undefined ? item[header] : "";
-          })
-          .join(",");
-      })
+    const rows = cleanedData
+      .map((item) =>
+        headers
+          .map((header) => (item[header] !== undefined ? item[header] : ""))
+          .join(",")
+      )
       .join("\n");
 
-    console.log("Filtered Values:", rows);
-
-    // Combine header row and values into CSV format
     const csv = [headerRow, rows].join("\n");
-    console.log("CSV Content:", csv);
 
-    // Create Blob and URL for download
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
 
-    a.download = `electricitieser_Report_${currentPage}.csv`; // Name the file appropriately
+    a.download = `Electricity_${currentPage}.csv`;
     a.href = url;
-    document.body.appendChild(a); // Append to body for Firefox support
+    document.body.appendChild(a);
     a.click();
-
-    // Cleanup
     a.remove();
     URL.revokeObjectURL(url);
 

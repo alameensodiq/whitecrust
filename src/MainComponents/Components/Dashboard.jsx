@@ -90,8 +90,22 @@ const Dashboard = () => {
   };
 
   const formatNumberWithCommas = (number) => {
-    if (number == null) return "0"; // Handle null or undefined
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (number == null || isNaN(number)) return "0.00"; // Handle null, undefined, NaN
+    const fixedNumber = parseFloat(number).toFixed(2); // Convert to string with 2 decimal places
+    const parts = fixedNumber.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
+
+  const formatNumberWithCommasUser = (number) => {
+    if (number == null || isNaN(number)) return "0"; // Handle null, undefined, NaN
+    const roundedUp = Math.ceil(Number(number)); // Round up to the nearest whole number
+    return roundedUp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const formatToTwoDecimalPlaces = (number) => {
+    if (number == null || isNaN(number)) return "0.00"; // Handle null, undefined, NaN
+    return parseFloat(number).toFixed(2);
   };
   return (
     <div className="flex flex-row">
@@ -117,14 +131,17 @@ const Dashboard = () => {
                       Total Users
                     </span>
                     <span className="text-color-user text-[20px] font-bold">
-                      {formatNumberWithCommas(dashboards?.data?.total_user)}
+                      {formatNumberWithCommasUser(dashboards?.data?.total_user)}
                     </span>
                     <div className="flex flex-row gap-1 text-[10px]">
                       <span>
                         <Increase />
                       </span>
                       <span className="text-card-user">
-                        {dashboards?.data?.user_change}%
+                        {formatToTwoDecimalPlaces(
+                          dashboards?.data?.user_change
+                        )}
+                        %
                       </span>
                       <span>Up from yesterday</span>
                     </div>
